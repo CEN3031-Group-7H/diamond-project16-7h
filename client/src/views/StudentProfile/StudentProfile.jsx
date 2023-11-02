@@ -7,11 +7,13 @@ import NavBar from '../../components/NavBar/NavBar';
 import { useGlobalState } from '../../Utils/userState';
 import { getCurrentStudents, getStudent, getStudentClassroom } from '../../Utils/requests';
 import './StudentProfile.less';
+import './BadgeList.jsx'
 
 function StudentProfile() {
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [currentStudent, setCurrentStudent] = useState();
+  const [editMode, setEditMode] = useState(false)
 
   // Get the currently logged in student
   getCurrentStudents().then((res) => {
@@ -39,7 +41,7 @@ function StudentProfile() {
               Featured Projects Go Here
             </TabPanel>
             <TabPanel>
-              Earned Badges Go Here
+              {/* BadgeList(currentStudent.id, editMode) */}
             </TabPanel>
           </Tabs>
         </div>
