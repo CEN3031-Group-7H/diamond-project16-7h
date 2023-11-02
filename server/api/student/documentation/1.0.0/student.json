@@ -720,6 +720,12 @@
                   "type": "string"
                 }
               },
+              "badges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -784,6 +790,53 @@
           "last_logged_in": {
             "type": "string",
             "format": "date-time"
+          },
+          "badges": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image_url": {
+                  "type": "string"
+                },
+                "classroom": {
+                  "type": "string"
+                },
+                "students": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "default_visible": {
+                  "type": "boolean"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "account_created": {
+            "type": "string",
+            "format": "date"
           }
         }
       },
@@ -814,6 +867,16 @@
           "last_logged_in": {
             "type": "string",
             "format": "date-time"
+          },
+          "badges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "account_created": {
+            "type": "string",
+            "format": "date"
           },
           "created_by": {
             "type": "string"

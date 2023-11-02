@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "badges",
+  "info": {
+    "name": "Badge",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "classroom": {
+      "model": "classroom",
+      "via": "badges"
+    },
+    "students": {
+      "via": "badges",
+      "collection": "student",
+      "dominant": true
+    },
+    "default_visible": {
+      "type": "boolean"
+    }
+  }
+}

@@ -675,6 +675,15 @@
               "last_logged_in": {
                 "type": "string"
               },
+              "badges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "account_created": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

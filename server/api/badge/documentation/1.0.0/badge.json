@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/grades": {
+    "/badges": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Grade"
+                    "$ref": "#/components/schemas/Badge"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Grade"
+          "Badge"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Grade"
+                  "$ref": "#/components/schemas/Badge"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Grade"
+          "Badge"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewGrade"
+                "$ref": "#/components/schemas/NewBadge"
               }
             }
           }
         }
       }
     },
-    "/grades/count": {
+    "/badges/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Grade"
+          "Badge"
         ],
         "parameters": []
       }
     },
-    "/grades/{id}": {
+    "/badges/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Grade"
+                  "$ref": "#/components/schemas/Badge"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Grade"
+          "Badge"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Grade"
+                  "$ref": "#/components/schemas/Badge"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Grade"
+          "Badge"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewGrade"
+                "$ref": "#/components/schemas/NewBadge"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Grade"
+          "Badge"
         ],
         "parameters": [
           {
@@ -514,10 +514,9 @@
   },
   "components": {
     "schemas": {
-      "Grade": {
+      "Badge": {
         "required": [
-          "id",
-          "name"
+          "id"
         ],
         "properties": {
           "id": {
@@ -526,12 +525,83 @@
           "name": {
             "type": "string"
           },
-          "classrooms": {
+          "description": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "classroom": {
+            "required": [
+              "id",
+              "code"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "school": {
+                "type": "string"
+              },
+              "sessions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mentors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "students": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "code": {
+                "type": "string"
+              },
+              "grade": {
+                "type": "string"
+              },
+              "selections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "badges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "students": {
             "type": "array",
             "items": {
               "required": [
                 "id",
-                "code"
+                "enrolled"
               ],
               "properties": {
                 "id": {
@@ -540,7 +610,10 @@
                 "name": {
                   "type": "string"
                 },
-                "school": {
+                "character": {
+                  "type": "string"
+                },
+                "classroom": {
                   "type": "string"
                 },
                 "sessions": {
@@ -549,35 +622,11 @@
                     "type": "string"
                   }
                 },
-                "mentors": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                "enrolled": {
+                  "type": "boolean"
                 },
-                "students": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "code": {
+                "last_logged_in": {
                   "type": "string"
-                },
-                "grade": {
-                  "type": "string"
-                },
-                "selections": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "authorized_workspaces": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
                 },
                 "badges": {
                   "type": "array",
@@ -585,6 +634,9 @@
                     "type": "string"
                   }
                 },
+                "account_created": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -594,69 +646,41 @@
               }
             }
           },
-          "units": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name",
-                "number"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "grade": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "standards_id": {
-                  "type": "string"
-                },
-                "standards_description": {
-                  "type": "string"
-                },
-                "number": {
-                  "type": "integer"
-                },
-                "lesson_modules": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
+          "default_visible": {
+            "type": "boolean"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "NewGrade": {
-        "required": [
-          "name"
-        ],
+      "NewBadge": {
         "properties": {
           "name": {
             "type": "string"
           },
-          "classrooms": {
+          "description": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "classroom": {
+            "type": "string"
+          },
+          "students": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "units": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "default_visible": {
+            "type": "boolean"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           },
           "created_by": {
             "type": "string"
@@ -670,7 +694,7 @@
   },
   "tags": [
     {
-      "name": "Grade"
+      "name": "Badge"
     }
   ]
 }
