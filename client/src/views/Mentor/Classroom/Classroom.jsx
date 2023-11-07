@@ -53,7 +53,7 @@ export default function Classroom({
           />
         </TabPane>
         <TabPane tab='Badge Creator' key='BadgeCreator'>
-          <BadgeCreator handleLogout={handleLogout} classroomId={id} />
+          <BadgeCreator />
         </TabPane>
       </Tabs>
     </div>
