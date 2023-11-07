@@ -33,7 +33,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
         // if badges object is missing
         return(
             <div>
-                <div class="missingInfoRectangle">Student has not earned any badges yet</div>
+                <div className="missingInfoRectangle">Student has not earned any badges yet</div>
             </div>
         )
     }
@@ -41,7 +41,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
         // if badges empty
         return(
             <div>
-                <div class="missingInfoRectangle">Student has not earned any badges yet</div>
+                <div className="missingInfoRectangle">Student has not earned any badges yet</div>
             </div>
         )
     }
