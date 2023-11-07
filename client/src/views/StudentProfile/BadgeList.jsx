@@ -21,6 +21,15 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
     function handleShowBadge(badgeId){
     }
 
+    if(currentStudent == null){
+        // handle logged out student
+        return(
+            <div>
+                <div className="missingInfoRectangle">Log in to see your Badges</div>
+            </div>
+        )
+    }
+
 
     if (currentStudent.hidden_badge_ids == null){
         console.log("Updating local student to have hidden badge array")
