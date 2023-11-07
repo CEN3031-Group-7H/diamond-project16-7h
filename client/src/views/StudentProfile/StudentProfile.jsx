@@ -45,7 +45,7 @@ function StudentProfile() {
       <NavBar />
       <div id='activity-container'>
         <div id='header'>
-            <div>Welcome {!(currentStudent == null) ? currentStudent.name : ''} {!(currentStudent == null) ? currentStudent.character : ''}</div>
+            <div>Welcome {!(currentStudent == null) ? currentStudent.name + ' !' : ''}</div>
         </div>
         <div>
           <Tabs>
