@@ -26,8 +26,7 @@
     },
     "students": {
       "via": "badges",
-      "collection": "student",
-      "dominant": true
+      "collection": "student"
     },
     "default_visible": {
       "type": "boolean"

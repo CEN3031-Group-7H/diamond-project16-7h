@@ -837,6 +837,9 @@
           "account_created": {
             "type": "string",
             "format": "date"
+          },
+          "Test": {
+            "type": "string"
           }
         }
       },
@@ -877,6 +880,9 @@
           "account_created": {
             "type": "string",
             "format": "date"
+          },
+          "Test": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

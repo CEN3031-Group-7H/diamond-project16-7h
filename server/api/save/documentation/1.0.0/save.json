@@ -684,6 +684,9 @@
               "account_created": {
                 "type": "string"
               },
+              "Test": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

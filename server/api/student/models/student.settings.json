@@ -37,10 +37,14 @@
     },
     "badges": {
       "via": "students",
-      "collection": "badge"
+      "collection": "badge",
+      "dominant": true
     },
     "account_created": {
       "type": "date"
+    },
+    "Test": {
+      "type": "string"
     }
   }
 }
