@@ -1,0 +1,91 @@
+@import '../../assets/style.less';
+button{
+    background-color: #colors[secondary];
+    box-shadow: none;
+}
+.hideBadgeButton{
+    /* Style for button to click to hide a shown badge */
+    display:block;
+    background-color: #de5b5b;
+    width: 30px;
+    height: 30px;
+    
+    border-radius: 50%;
+    border: 2px solid #colors[secondary] ;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.hideBadgeButton:hover {
+    background-color: #823d3d;
+}
+.showBadgeButton{
+    /* Style for button to click to show a hidden badge */
+    display:block;
+    background-color: #75de5b;
+    width: 30px;
+    height: 30px;
+    
+    border-radius: 50%;
+    border: 2px solid #colors[secondary] ;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.showBadgeButton:hover {
+    background-color: #40823d;
+}
+
+.toggleEditButton{
+    /* Style for button to click to hide a shown badge */
+    display:block;
+    background-color: #de5b5b00;
+    width: 40px;
+    height: 40px;
+    
+    font-size:x-large;
+
+    border-radius: 50%;
+    border: 0px solid #colors[secondary] ;
+    margin-top: -50px;
+    margin-right: 16px;
+    margin-left: auto;
+}
+.toggleEditButton:hover {
+    font-weight: 1000;
+}
+
+.missingInfoRectangle{
+    /* Style for how to display text explaining no badges for current student */
+    width: 300px;
+    height: 45px;
+    padding: 5px;
+    border: 1px solid #colors[secondary] ;
+    color: #colors[text-primary]; //text color
+    border-radius: 15px;
+    margin: auto; /* Center horizontally and vertically */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+}
+
+.badge-grid {
+    /* Style for gridding badges */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
+    gap: 16px; /* Adjust the gap between items as needed */
+    align-content: start; /* Add this line to align items to the start of each row */
+    justify-content: start;
+  }
+.badge-item {
+    /* Style for individual badges */
+    border: 0px solid rgb(200, 200, 200);
+    padding: 16px;
+    position: relative;
+}
+.badge-name{
+      color: #colors[text-primary];
+      font-style: italic;
+}

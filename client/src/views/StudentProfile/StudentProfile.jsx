@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Tab, Tabs, TabPanel, TabList } from 'react-tabs';
 import 'react-tabs/style/react-tabs.less';
 import { useNavigate } from 'react-router-dom';
@@ -7,13 +7,17 @@ import NavBar from '../../components/NavBar/NavBar';
 import { useGlobalState } from '../../Utils/userState';
 import { getCurrentStudents, getStudents, getStudentClassroom } from '../../Utils/requests';
 import './StudentProfile.less';
-import './BadgeList.jsx';
+import BadgeList from './BadgeList.jsx';
+
 
 function StudentProfile() {
 
-  const [currentStudent, setCurrentStudent] = useState();
+  const [currentStudent, setCurrentStudent] = useState(null);
   const [badgesArr, setBadgesArr] = useState([]);  
   const [editMode, setEditMode] = useState(false);
+
+  const [junkForUpdate, updateViaJunk] = useState(0); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
+
 
   // Get the currently logged in student (if not already retrieved)
   if(!currentStudent) {
@@ -53,7 +57,14 @@ function StudentProfile() {
               Featured Projects Go Here
             </TabPanel>
             <TabPanel>
-              <div>{!(currentStudent == null) ? badgesArr.map((name) => <p>{name}</p>) : ''}</div>
+            <BadgeList
+              currentStudent={currentStudent}
+              setCurrentStudent={setCurrentStudent}
+              editMode={editMode}
+              setEditMode={setEditMode}
+              junkForUpdate = {junkForUpdate}
+              updateViaJunk = {updateViaJunk}
+            />
             </TabPanel>
           </Tabs>
         </div>
