@@ -1,4 +1,4 @@
-import 'BadgeCreator.less';
+import './BadgeCreator.less';
 import React, { useEffect, useState } from 'react';
 
 import {
