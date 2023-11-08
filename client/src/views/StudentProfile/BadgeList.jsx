@@ -10,16 +10,6 @@ import './BadgeList.less';
  */
 function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, junkForUpdate, updateViaJunk} ){
     console.log("rendering BadgeList")
-    /**
-     * @param {string} badgeId The badge id
-     */
-    function handleHideBadge(badgeId){
-    }
-    /**
-     * @param {string} badgeId The badge id
-     */
-    function handleShowBadge(badgeId){
-    }
 
     if(currentStudent == null){
         // handle logged out student
@@ -32,6 +22,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
 
 
     if (currentStudent.hidden_badge_ids == null){
+        //solution to implement hidden badge list likely to change
         console.log("Updating local student to have hidden badge array")
         currentStudent.hidden_badge_ids = [];
         //updateStudent(currentStudent.id, currentStudent); //currentStudents currently assignd no role, so authentication will not work
@@ -112,7 +103,6 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
                                     className="hideBadgeButton"
                                     onClick={() => {
                                         currentStudent.hidden_badge_ids.push(badge.id);
-                                        console.log(currentStudent);
                                         //updateStudent(currentStudent.id, currentStudent); //students currently assignd no role, so authentication will not work
                                         setCurrentStudent(currentStudent);
                                         updateViaJunk(junkForUpdate + 1); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
@@ -129,12 +119,6 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
             <div className="badge-grid">
                 {currentStudent.badges.map((badge, index) => {
                     // Skip rendering if the badge is shown for that student
-                    console.log("deciding to render hidden badge")
-                    console.log(currentStudent);
-                    console.log(badge);
-                    console.log(badge.id);
-                    console.log(currentStudent.hidden_badge_ids);
-                    console.log(currentStudent.hidden_badge_ids.includes( badge.id ));
                     if (!currentStudent.hidden_badge_ids.includes( badge.id )) {
                         return null;
                     }
@@ -152,7 +136,6 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
                                 className="showBadgeButton"
                                 onClick={() => {
                                     currentStudent.hidden_badge_ids = currentStudent.hidden_badge_ids.filter(function(e) { return e !== badge.id});
-                                    console.log(currentStudent);
                                     //updateStudent(currentStudent.id, currentStudent); //students currently assignd no role, so authentication will not work
                                     setCurrentStudent(currentStudent);
                                     updateViaJunk(junkForUpdate + 1); // Currently experiencing issues with setCurrentStudent not triggering a rerender.

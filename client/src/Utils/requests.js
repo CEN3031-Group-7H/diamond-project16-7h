@@ -680,3 +680,11 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Unable to retrive classroom workspaces',
   });
+
+  export const getBadge = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/badges/${id}`,
+    auth: true,
+    error: 'Badge info could not be retrieved.',
+  });
