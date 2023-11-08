@@ -1,6 +1,22 @@
 import './BadgeCreator.less';
 import React, { useState } from 'react';
 
+const sanitizeInput = (input) => {
+    // Remove script tags and any content within them
+    input = input.replace(/<script.*?>.*?<\/script>/gi, '');
+  
+    // Encode HTML entities to prevent HTML injection
+    input = input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  
+    // Remove any remaining HTML tags
+    input = input.replace(/<\/?[^>]+(>|$)/g, "");
+  
+    // Remove anything that's not a letter, number, whitespace, or common punctuation
+    input = input.replace(/[^a-zA-Z0-9\s.,!?'"-]/g, '');
+  
+    return input;
+  };  
+
 function BadgeCreator() {
   // State for each input field
   const [badgeName, setBadgeName] = useState('');
@@ -8,15 +24,32 @@ function BadgeCreator() {
   const [badgeCriteria, setBadgeCriteria] = useState('');
   const [badgeIcon, setBadgeIcon] = useState(null);
 
+  const handleIconChange = (event) => {
+    const file = event.target.files[0];
+    const validImageTypes = ['image/png', 'image/jpeg', 'image/gif'];
+    
+    if (file && validImageTypes.includes(file.type)) {
+      setBadgeIcon(file);
+    } else {
+      alert('Please select an image file (png, jpeg, gif).');
+      event.target.value = ''; // Clear the file input
+    }
+  };
+
   // Handler for form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     
+    // Cyber security measures
+    const sanitizedBadgeName = sanitizeInput(badgeName);
+    const sanitizedBadgeDescription = sanitizeInput(badgeDescription);
+    const sanitizedBadgeCriteria = sanitizeInput(badgeCriteria);
+  
     // Create a FormData object to hold the file data
     const formData = new FormData();
-    formData.append('name', badgeName);
-    formData.append('description', badgeDescription);
-    formData.append('criteria', badgeCriteria);
+    formData.append('name', sanitizedBadgeName);
+    formData.append('description', sanitizedBadgeDescription);
+    formData.append('criteria', sanitizedBadgeCriteria);
     formData.append('icon', badgeIcon);
 
     // TODO: Post formData to the server
@@ -33,7 +66,6 @@ function BadgeCreator() {
   const handleNameChange = (event) => setBadgeName(event.target.value);
   const handleDescriptionChange = (event) => setBadgeDescription(event.target.value);
   const handleCriteriaChange = (event) => setBadgeCriteria(event.target.value);
-  const handleIconChange = (event) => setBadgeIcon(event.target.files[0]);
 
   return (
     <div className="badge-creator">
@@ -73,6 +105,7 @@ function BadgeCreator() {
             type="file"
             id="badgeIcon"
             onChange={handleIconChange}
+            accept="image/png, image/jpeg, image/heic"
             required
           />
         </div>
