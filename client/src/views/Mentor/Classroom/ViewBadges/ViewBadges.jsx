@@ -15,7 +15,10 @@ function ViewBadges() {
     // Refresh page
     window.location.reload();
   }
-
+    const[toggleText, setToggleText] = useState("Tile");
+    const toggle = () => {
+      setToggleText((state) => (state === "List" ? "Tile" : "List"));
+    }
     return (
         <div className="badgePane">
           <MentorSubHeader
@@ -35,6 +38,8 @@ function ViewBadges() {
             >
               <img src={removeButton} alt="Edit/Remove badge"/>
             </button>
+            <button id = "toggle-button" variant="contained" onClick={toggle}></button>
+            <h3>{toggleText}</h3>
           </div>
         </div>
         
