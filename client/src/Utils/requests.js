@@ -688,3 +688,12 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Badge info could not be retrieved.',
   });
+
+  export const updateBadgeVisibility = async (badgeId, visible) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/badges/${badgeId}`,
+    data: { visible: visible },
+    auth: true,
+    error: 'Failed to update badge visibility.',
+  });
