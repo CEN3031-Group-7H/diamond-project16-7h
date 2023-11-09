@@ -6,6 +6,7 @@ import NavBar from '../../../components/NavBar/NavBar';
 import Roster from './Roster/Roster';
 import Home from './Home/Home';
 import BadgeCreator from './BadgeCreator/BadgeCreator'
+import ViewBadges from './ViewBadges/ViewBadges'
 import SavedWorkSpaceTab from '../../../components/Tabs/SavedWorkspaceTab';
 import { useSearchParams, useParams } from 'react-router-dom';
 
@@ -54,6 +55,9 @@ export default function Classroom({
         </TabPane>
         <TabPane tab='Badge Creator' key='BadgeCreator'>
           <BadgeCreator />
+        </TabPane>
+        <TabPane tab='View Badges' key='ViewBadges'>
+          <ViewBadges />
         </TabPane>
       </Tabs>
     </div>
