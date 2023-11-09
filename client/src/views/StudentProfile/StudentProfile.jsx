@@ -5,9 +5,11 @@ import 'react-tabs/style/react-tabs.less';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
 import { useGlobalState } from '../../Utils/userState';
-import { getCurrentStudents, getStudents, getStudentClassroom } from '../../Utils/requests';
+import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClassroom } from '../../Utils/requests';
 import './StudentProfile.less';
 import BadgeList from './BadgeList.jsx';
+import BadgeToggle from '../../components/BadgeToggle.jsx';
+
 
 
 function StudentProfile() {
@@ -40,6 +42,37 @@ function StudentProfile() {
 
   console.log(badgesArr);
 
+  function handleToggleBadgeVisibility(badgeId) {
+    // Find the badge with the given id
+    const badgeIndex = badgesArr.findIndex(badge => badge.id === badgeId);
+    if (badgeIndex === -1) return; // Exit if the badge wasn't found
+  
+    // Toggle the visibility of the badge
+    const updatedBadge = { ...badgesArr[badgeIndex], visible: !badgesArr[badgeIndex].visible };
+  
+    // Call the API to update the badge visibility on the backend
+    updateBadgeVisibility(updatedBadge.id, updatedBadge.visible)
+      .then(response => {
+        // Check if the response has data and no error
+        if (response.data && !response.err) {
+          // If the backend update is successful, update the state on the front end
+          const updatedBadgesArr = badgesArr.map(b =>
+            b.id === badgeId ? updatedBadge : b
+          );
+          setBadgesArr(updatedBadgesArr);
+        } else {
+          // If there is an error, log it and do not update the state
+          message.error('Failed to update badge visibility: ' + response.err);
+        }
+      })
+      .catch(error => {
+        // Handle any network errors
+        message.error('Failed to update badge visibility: ' + error.message);
+      });
+  }
+  
+  
+
   return (
     <div className='container nav-padding'>
       <NavBar />
@@ -64,7 +97,13 @@ function StudentProfile() {
               setEditMode={setEditMode}
               junkForUpdate = {junkForUpdate}
               updateViaJunk = {updateViaJunk}
-            />
+              >
+
+              {badgesArr.map(badge => (
+                <BadgeToggle key={badge.id} badge={badge} onToggle={handleToggleBadgeVisibility} />
+              ))}
+            </BadgeList>
+
             </TabPanel>
           </Tabs>
         </div>
