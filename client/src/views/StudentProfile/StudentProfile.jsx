@@ -9,7 +9,8 @@ import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClass
 import './StudentProfile.less';
 import BadgeList from './BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
-
+import SearchProfile from '../../components/SearchProfile.jsx';
+import Search from '../../components/Search.jsx';
 
 
 function StudentProfile() {
@@ -17,6 +18,7 @@ function StudentProfile() {
   const [currentStudent, setCurrentStudent] = useState(null);
   const [badgesArr, setBadgesArr] = useState([]);  
   const [editMode, setEditMode] = useState(false);
+  const [searchFilter, setSearchFilter] = useState('');
 
   const [junkForUpdate, updateViaJunk] = useState(0); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
 
@@ -85,6 +87,7 @@ function StudentProfile() {
             <TabList align='start'>
               <Tab>Featured Projects</Tab>
               <Tab>Earned Badges</Tab>
+              <Tab>Classmates</Tab>
             </TabList>
             <TabPanel>
               Featured Projects Go Here
@@ -103,7 +106,12 @@ function StudentProfile() {
                 <BadgeToggle key={badge.id} badge={badge} onToggle={handleToggleBadgeVisibility} />
               ))}
             </BadgeList>
-
+            <SearchProfile filterUpdate={setSearchFilter} />
+              <ul>
+                {filteredStudents.map((student) => (
+                  <li key={student.id}>{student.name}</li>
+                ))}
+              </ul>
             </TabPanel>
           </Tabs>
         </div>
