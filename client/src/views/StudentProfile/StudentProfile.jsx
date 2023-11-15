@@ -9,7 +9,7 @@ import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClass
 import './StudentProfile.less';
 import BadgeList from './BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
-import SearchProfile from '../../components/SearchProfile.jsx';
+import SearchProfile from './SearchProfile.jsx';
 import Search from '../../components/Search.jsx';
 
 
@@ -19,6 +19,7 @@ function StudentProfile() {
   const [badgesArr, setBadgesArr] = useState([]);  
   const [editMode, setEditMode] = useState(false);
   const [searchFilter, setSearchFilter] = useState('');
+  const [filteredStudents, setFilteredStudents] = useState([]);
 
   const [junkForUpdate, updateViaJunk] = useState(0); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
 
@@ -73,7 +74,35 @@ function StudentProfile() {
       });
   }
   
+  useEffect(() => {
+    getCurrentStudents().then((res) => {
+      if (res.data) {
+        setCurrentStudent(res.data.students[0]);
+        const badgesObj = res.data.students[0].badges;
+        var badgesArr = [];
+        badgesObj.forEach(function (currentVal) {
+          badgesArr.push(currentVal.name);
+        });
+        setBadgesArr(badgesArr);
+      } else {
+        message.error(res.err);
+      }
+    });
+  }, []);
   
+  useEffect(() => {
+    const searchAndUpdate = async () => {
+      const { data: filteredStudents, err } = await getStudents(searchFilter);
+
+      if (err) {
+        console.error(err);
+      } else {
+        setFilteredStudents(filteredStudents || []);
+      }
+    };
+
+    searchAndUpdate();
+  }, [searchFilter]);
 
   return (
     <div className='container nav-padding'>
@@ -107,7 +136,7 @@ function StudentProfile() {
               ))}
             </BadgeList>
             <SearchProfile filterUpdate={setSearchFilter} />
-              <ul>
+            <ul>
                 {filteredStudents.map((student) => (
                   <li key={student.id}>{student.name}</li>
                 ))}
