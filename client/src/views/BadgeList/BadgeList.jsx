@@ -7,8 +7,9 @@ import './BadgeList.less';
  * @param {string} currentStudent The currently shown profile's student
  * @param {function} setCurrentStudent The setter for the student useState in StudentProfile
  * @param {Boolean} editMode Whether to display profile in edit mode
+ * @param {Boolean} isOwnProfile
  */
-function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, junkForUpdate, updateViaJunk} ){
+function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, isOwnProfile, junkForUpdate, updateViaJunk} ){
     console.log("rendering BadgeList")
 
     if(currentStudent == null){
@@ -49,9 +50,12 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
         //else if edit mode off
         return(
             <div>
-            <div id='editButton'>
-              <button className='toggleEditButton' onClick={() => setEditMode(!editMode)}>✎</button>
-            </div>
+            {isOwnProfile && (
+                <div id='editButton'>
+                <button className='toggleEditButton' onClick={() => setEditMode(!editMode)}>✎</button>
+                </div>
+            )}
+    
             <div className="badge-grid">
                 {currentStudent.badges.map((badge, index) => {
                     // Skip rendering if the badge is hidden for that student
@@ -62,7 +66,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
                     return (
                         <div key={index} className="badge-item">
                           {badge.image_url && (
-                            <img src={badge.image_url} alt={badge.name} />
+                            <img src={badge.image_url} alt={badge.name} height = "200" />
                           )}
                           {badge.name && (
                             <p className="badge-name">{badge.name}</p>
@@ -93,7 +97,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
                     return (
                         <div key={index} className="badge-item">
                             {badge.image_url && (
-                                <img src={badge.image_url} alt={badge.name} />
+                                <img src={badge.image_url} alt={badge.name} height = "200" />
                             )}
                             {badge.name && (
                                 <p className="badge-name">{badge.name}</p>
@@ -126,7 +130,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, j
                     return (
                         <div key={index} className="badge-item">
                         {badge.image_url && (
-                            <img src={badge.image_url} alt={badge.name} />
+                            <img src={badge.image_url} alt={badge.name} height = "200" />
                         )}
                         {badge.name && (
                             <p className="badge-name">{badge.name}</p>

@@ -7,7 +7,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import { useGlobalState } from '../../Utils/userState';
 import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClassroom } from '../../Utils/requests';
 import './StudentProfile.less';
-import BadgeList from './BadgeList.jsx';
+import BadgeList from '../BadgeList/BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
 
 
@@ -41,6 +41,7 @@ function StudentProfile() {
   }
 
   console.log(badgesArr);
+  console.log(currentStudent);
 
   function handleToggleBadgeVisibility(badgeId) {
     // Find the badge with the given id
@@ -95,6 +96,7 @@ function StudentProfile() {
               setCurrentStudent={setCurrentStudent}
               editMode={editMode}
               setEditMode={setEditMode}
+              isOwnProfile = {true}
               junkForUpdate = {junkForUpdate}
               updateViaJunk = {updateViaJunk}
               >
