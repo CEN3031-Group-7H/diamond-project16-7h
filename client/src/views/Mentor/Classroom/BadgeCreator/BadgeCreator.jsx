@@ -54,7 +54,7 @@ function BadgeCreator() {
     formData.append('icon', badgeIcon);
 
     // TODO: Post formData to the server
-    const serverEndpoint = 'https://yourserver.com/api/badges';
+    const serverEndpoint = 'https://localhost:1337';
 
   // Use the Fetch API to send the form data to the server
   fetch(serverEndpoint, {

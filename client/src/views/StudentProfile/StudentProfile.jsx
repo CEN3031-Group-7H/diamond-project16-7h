@@ -9,7 +9,7 @@ import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClass
 import './StudentProfile.less';
 import BadgeList from './BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
-import SearchProfile from '../../components/SearchProfile.jsx';
+import SearchProfile from './SearchProfile.jsx';
 import Search from '../../components/Search.jsx';
 
 
@@ -107,11 +107,11 @@ function StudentProfile() {
               ))}
             </BadgeList>
             <SearchProfile filterUpdate={setSearchFilter} />
-              <ul>
+              {/* <ul>
                 {filteredStudents.map((student) => (
                   <li key={student.id}>{student.name}</li>
                 ))}
-              </ul>
+              </ul> */}
             </TabPanel>
           </Tabs>
         </div>
