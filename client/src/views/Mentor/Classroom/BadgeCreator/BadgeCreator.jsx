@@ -85,7 +85,7 @@ function BadgeCreator() {
   
 };
     
-  };
+  
 
   // Handlers for changing the state of each input field
   const handleNameChange = (event) => setBadgeName(event.target.value);
