@@ -177,15 +177,15 @@ export const createActivity = async (activity, learningStandard) =>
     error: 'Login failed.',
   });
 
-  export const createBadge = async (n, desc, crit, ic) =>
+  export const createBadge = async (fD) =>
     makeRequest({
       method: POST,
       path: `${server}/badges`,
       data: {
-        name: n,
-        description: desc,
-        criteria: crit,
-        icon: ic,
+        name: fD.name,
+        description: fD.description,
+       // criteria: fD.criteria,
+        image_url: fD.icon
       },
       auth: true,
       error: 'Failed to store new badge.',

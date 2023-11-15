@@ -40,7 +40,7 @@ function BadgeCreator() {
   };
 
   // Handler for form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     // Cyber security measures. 
@@ -56,8 +56,8 @@ function BadgeCreator() {
     formData.append('icon', badgeIcon);
 
     // Call requests.js function to store the badge on the backend
-    const createCustomBadge = async () => {
-    const response = await createBadge(formData.name, formData.description, formData.criteria, formData.icon);
+    
+    const response = await createBadge(formData);
     console.log(response);
     if (response.err) {
       message.error(response.err)
@@ -67,7 +67,7 @@ function BadgeCreator() {
     setBadgeDescription('');
     setBadgeCriteria('');
     setBadgeIcon(null);
-  }
+  
   
 };
     
