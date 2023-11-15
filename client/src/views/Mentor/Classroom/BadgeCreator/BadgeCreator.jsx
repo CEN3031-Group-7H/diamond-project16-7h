@@ -1,6 +1,7 @@
 import './BadgeCreator.less';
 import React, { useState } from 'react';
 
+// Sanitizing user input to prevent XSS and other cyber attacks
 const sanitizeInput = (input) => {
     // Remove script tags and any content within them
     input = input.replace(/<script.*?>.*?<\/script>/gi, '');
@@ -26,12 +27,12 @@ function BadgeCreator() {
 
   const handleIconChange = (event) => {
     const file = event.target.files[0];
-    const validImageTypes = ['image/png', 'image/jpeg', 'image/gif'];
+    const validImageTypes = ['image/png', 'image/jpeg', 'image/heic'];
     
     if (file && validImageTypes.includes(file.type)) {
       setBadgeIcon(file);
     } else {
-      alert('Please select an image file (png, jpeg, gif).');
+      alert('Please select an image file (png, jpeg, heic).');
       event.target.value = ''; // Clear the file input
     }
   };
@@ -40,7 +41,7 @@ function BadgeCreator() {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    // Cyber security measures
+    // Cyber security measures. 
     const sanitizedBadgeName = sanitizeInput(badgeName);
     const sanitizedBadgeDescription = sanitizeInput(badgeDescription);
     const sanitizedBadgeCriteria = sanitizeInput(badgeCriteria);
@@ -53,14 +54,38 @@ function BadgeCreator() {
     formData.append('icon', badgeIcon);
 
     // TODO: Post formData to the server
-    console.log('Form submitted', formData);
+    const serverEndpoint = 'https://yourserver.com/api/badges';
 
+  // Use the Fetch API to send the form data to the server
+  fetch(serverEndpoint, {
+    method: 'POST',
+    body: formData,
+    // Note: When sending FormData, the 'Content-Type' header should not be set
+    // as the browser will set it to 'multipart/form-data' with the correct boundary
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
     // Reset the form fields
     setBadgeName('');
     setBadgeDescription('');
     setBadgeCriteria('');
     setBadgeIcon(null);
-  };
+  })
+  .catch(error => {
+    console.error('Error submitting form:', error);
+    // Handle errors here (e.g., show an error message)
+  });
+
+  
+};
+    
+  
 
   // Handlers for changing the state of each input field
   const handleNameChange = (event) => setBadgeName(event.target.value);
