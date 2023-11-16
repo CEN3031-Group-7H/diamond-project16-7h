@@ -75,16 +75,20 @@ button{
     /* Style for gridding badges */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
-    gap: 16px; /* Adjust the gap between items as needed */
+    gap: 32px; /* Adjust the gap between items as needed */
     align-content: start; /* Add this line to align items to the start of each row */
     justify-content: start;
-    margin: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    margin-right: 96px;
   }
 .badge-item {
     /* Style for individual badges */
     border: 0px solid rgb(200, 200, 200);
     padding: 16px;
     position: relative;
+    display: inline-block;
 }
 .badge-name{
       color: #colors[text-primary];

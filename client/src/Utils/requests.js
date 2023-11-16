@@ -154,6 +154,36 @@ export const getCurrentStudents = async () =>
     error: 'Student info could not be retrieved.',
   });
 
+  export const initHiddenBadges = async (id) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/students/granthidebadgearr/${id}`,
+    auth: true,
+    error: 'Profile data could not be fixed for the selected student'
+  })
+
+  export const setBadgeHidden = async (id, badgeId) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/students/hidebadge/${id}`,
+    data: {
+      badgeId: badgeId,
+    },
+    auth: true,
+    error: 'Badge could not be hidden for the selected student'
+  })
+
+  export const setBadgeShown = async (id, badgeId) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/students/showbadge/${id}`,
+    data: {
+      badgeId: badgeId,
+    },
+    auth: true,
+    error: 'Badge could not be shown for the selected student'
+  })
+
 export const postJoin = async (code, ids) =>
   makeRequest({
     method: POST,

@@ -63,6 +63,30 @@
       "config": {
         "policies": ["global::isClassroomManager", "global::hasStudentsClassroom"]
       }
+    },
+    {
+      "method": "PUT",
+      "path": "/students/hidebadge/:id",
+      "handler": "student.hidebadge",
+      "config": {
+        "policies": ["global::isStudent"]
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/students/showbadge/:id",
+      "handler": "student.showbadge",
+      "config": {
+        "policies": ["global::isStudent"]
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/students/granthidebadgearr/:id",
+      "handler": "student.granthidebadgearr",
+      "config": {
+        "policies": ["global::isStudent"]
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { updateStudent } from '../../Utils/requests';
+import { initHiddenBadges, setBadgeHidden, setBadgeShown, updateStudent } from '../../Utils/requests';
 import './BadgeList.less';
 
 
@@ -20,17 +20,35 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
             </div>
         )
     }
-
-
-    if (currentStudent.hidden_badge_ids == null){
+    else if (currentStudent.profileData == null){
+        //update legacy students to have hidden badge array field
+        console.log("Updating local student to have hidden badge array")
+        initHiddenBadges(currentStudent.id).then((res) => {
+            if (res.data) {
+                console.log('1');
+                console.log(res.data);
+                setCurrentStudent(res.data);
+            } else {
+                console.log('2');
+                console.log(res.err);
+            }
+        });
+            
+    }
+    else if (currentStudent.profileData.hiddenBadges == null){
         //solution to implement hidden badge list likely to change
         console.log("Updating local student to have hidden badge array")
-        currentStudent.hidden_badge_ids = [];
-        //updateStudent(currentStudent.id, currentStudent); //currentStudents currently assignd no role, so authentication will not work
-        setCurrentStudent(currentStudent);
+        initHiddenBadges(currentStudent.id).then((res) => {
+            if (res.data) {
+                console.log(res.data);
+                setCurrentStudent(res.data);
+            } else {
+              console.log(res.err);
+            }
+        });
     }
 
-    if (currentStudent.badges == null){
+    else if (currentStudent.badges == null){
         // if badges object is missing
         return(
             <div>
@@ -58,8 +76,9 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
     
             <div className="badge-grid">
                 {currentStudent.badges.map((badge, index) => {
+                    console.log(currentStudent);
                     // Skip rendering if the badge is hidden for that student
-                    if (currentStudent.hidden_badge_ids.includes( badge.id )) {
+                    if (currentStudent.profileData.hiddenBadges.includes( badge.id )) {
                         return null;
                     }
                     else{
@@ -90,11 +109,12 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
             <div className="badge-grid">
                 {currentStudent.badges.map((badge, index) => {
                     // Skip rendering if the badge is hidden for that student
-                    if (currentStudent.hidden_badge_ids.includes( badge.id )) {
+                    if (currentStudent.profileData.hiddenBadges.includes( badge.id )) {
                         return null;
                     }
                     else{
                     return (
+                        <div>
                         <div key={index} className="badge-item">
                             {badge.image_url && (
                                 <img src={badge.image_url} alt={badge.name} height = "200" />
@@ -106,13 +126,18 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                                 <button
                                     className="hideBadgeButton"
                                     onClick={() => {
-                                        currentStudent.hidden_badge_ids.push(badge.id);
-                                        //updateStudent(currentStudent.id, currentStudent); //students currently assignd no role, so authentication will not work
-                                        setCurrentStudent(currentStudent);
-                                        updateViaJunk(junkForUpdate + 1); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
+                                        setBadgeHidden(currentStudent.id, badge.id).then((res) => {
+                                            if (res.data) {
+                                                console.log(res.data);
+                                                setCurrentStudent(res.data);
+                                            } else {
+                                              console.log(res.err);
+                                            }
+                                        });
                                     }}
                                 >-</button>
                             )}
+                        </div>
                         </div>
                     );
                     }
@@ -123,11 +148,12 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
             <div className="badge-grid">
                 {currentStudent.badges.map((badge, index) => {
                     // Skip rendering if the badge is shown for that student
-                    if (!currentStudent.hidden_badge_ids.includes( badge.id )) {
+                    if (!currentStudent.profileData.hiddenBadges.includes( badge.id )) {
                         return null;
                     }
                     else{
                     return (
+                        <div>
                         <div key={index} className="badge-item">
                         {badge.image_url && (
                             <img src={badge.image_url} alt={badge.name} height = "200" />
@@ -139,13 +165,18 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                             <button
                                 className="showBadgeButton"
                                 onClick={() => {
-                                    currentStudent.hidden_badge_ids = currentStudent.hidden_badge_ids.filter(function(e) { return e !== badge.id});
-                                    //updateStudent(currentStudent.id, currentStudent); //students currently assignd no role, so authentication will not work
-                                    setCurrentStudent(currentStudent);
-                                    updateViaJunk(junkForUpdate + 1); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
+                                    setBadgeShown(currentStudent.id, badge.id).then((res) => {
+                                        if (res.data) {
+                                            console.log(res.data);
+                                            setCurrentStudent(res.data);
+                                        } else {
+                                          console.log(res.err);
+                                        }
+                                    });
                                 }}
                             >+</button>
                         )}
+                        </div>
                         </div>
                     );
                     }
