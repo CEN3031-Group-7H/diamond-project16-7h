@@ -135,6 +135,8 @@ function StudentProfile() {
                 <BadgeToggle key={badge.id} badge={badge} onToggle={handleToggleBadgeVisibility} />
               ))}
             </BadgeList>
+            </TabPanel>
+            <TabPanel>
             <SearchProfile filterUpdate={setSearchFilter} />
             <ul>
                 {filteredStudents.map((student) => (
