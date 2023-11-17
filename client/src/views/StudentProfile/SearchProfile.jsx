@@ -5,6 +5,7 @@ import { getAllStudents, searchStudentsByName } from '../../Utils/requests.js';
 function SearchProfile({ data }) {
   const [filterText, setFilterText] = useState('');
   const [allStudents, setAllStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
 
   useEffect(() => {
     // fetch all students
@@ -28,13 +29,14 @@ function SearchProfile({ data }) {
 
   // use the searchStudentsByName function to get filtered students
   const searchAndUpdate = async () => {
-    const { data: filteredStudents, err } = await searchStudentsByName(filterText);
+    const { data: newFilteredStudents, err } = await searchStudentsByName(filterText);
 
     if (err) {
       console.error(err);
+    } else {
+      // set filtered students in the state
+      setFilteredStudents(newFilteredStudents || []);
     }
-
-    // Process filtered students as needed
   };
 
   // call the searchAndUpdate function when filterText changes
@@ -42,10 +44,12 @@ function SearchProfile({ data }) {
     searchAndUpdate();
   }, [filterText]);
 
+  const studentsToDisplay = filterText ? filteredStudents : allStudents;
+
   return (
     <div className="bg">
       <div className="row">
-        <h1>UF Directory App</h1>
+        <h1>Search Classmates</h1>
       </div>
       <Search filterUpdate={filterUpdate} />
       <main>
@@ -53,12 +57,15 @@ function SearchProfile({ data }) {
           <div className="column1">
             {/* List of students */}
             <ul>
-              {allStudents.map((student) => (
-                <li key={student.id}>{student.name}</li>
-              ))}
+              {studentsToDisplay.length > 0 ? (
+                studentsToDisplay.map((student) => (
+                  <li key={student.id}>{student.name}</li>
+                ))
+              ) : (
+                <li>No students found</li>
+              )}
             </ul>
           </div>
-          {/* Figure out other components */}
         </div>
       </main>
     </div>

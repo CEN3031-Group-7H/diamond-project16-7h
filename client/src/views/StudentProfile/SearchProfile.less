@@ -1,46 +1,98 @@
-/* Add this styling to your existing CSS or create a new CSS file */
+@import "../../assets/style";
 
 .bg {
-  background-color: #f4f4f4;
-  padding: 20px;
+  background-color: #colors[primary]; 
+  min-height: 100vh; 
+  padding: 20px; 
 }
 
-.row {
+#activity-container {
+  position: relative; 
+  margin: 20px auto;
+  height: 85vh;
+  width: 80vw;
+  background-color: #colors[tertiary];
+  border-radius: 15px;
+  border: 4px solid;
+  border-color: #colors[secondary];
+  padding: 20px; 
+}
+
+#header {
+  background-color: #colors[secondary];
+  border-radius: 15px; 
+  min-height: 4vh;
+  color: #colors[text-secondary];
+  font-size: 2.25vh;
+  font-weight: bold;
+  position: relative;
+  top: -20px;
+  left: -30px;
+  line-height: 45px;
+  text-align: center;
+  padding: 10px; 
+}
+
+#list-item-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  background-color: #colors[quaternary];
+  border: none;
+  border-radius: 10px;
+  margin: 10px auto; 
+  width: 80%;
+  height: 40px;
+  font-size: 2.5vh;
+  font-weight: 500;
+  color: #colors[text-primary];
+  line-height: 30px;
+  transition: 0.25s;
+  cursor: pointer; 
 }
 
-h1 {
-  font-size: 24px;
-  color: #333;
+#list-item-wrapper:hover {
+  background-color: #colors[quinary];
+  width: 82%;
 }
 
-main {
-  margin-top: 20px;
-}
-
-.column1 {
-  flex: 1;
-}
-
-/* search input styling */
-.Search input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-}
-
-/* student list styling */
-.column1 ul {
+ul {
   list-style-type: none;
+  margin: 0;
   padding: 0;
 }
 
-.column1 li {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 5px;
+li {
+  margin: 0;
+  padding: 0;
+}
+
+#launcher {
+  position: fixed;
+  bottom: 3vh;
+  right: 11vw;
+  color: #colors[primary];
+  background-color: #colors[tertiary];
+  font-weight: 550;
+  width: 10vw;
+  font-size: 2.75vh;
+  border: solid 3px;
+  border-radius: 10px;
+  border-color: #colors[primary];
+  transition: 0.25s;
+}
+
+#launcher:hover {
+  color: #colors[secondary];
+  border-color: #colors[secondary];
+}
+
+#launcher i {
+  margin-top: 5px;
+  font-size: 8vh;
+  color: #colors[primary];
+}
+
+#launcher:hover i {
+  color: #colors[secondary];
 }
