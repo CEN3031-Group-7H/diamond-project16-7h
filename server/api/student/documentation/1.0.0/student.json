@@ -1036,6 +1036,10 @@
             "type": "boolean",
             "default": true
           },
+          "last_logged_in": {
+            "type": "string",
+            "format": "date-time"
+          },
           "badges": {
             "type": "array",
             "items": {
@@ -1079,8 +1083,12 @@
               }
             }
           },
-          "profileData": {
-            "type": "object"
+          "account_created": {
+            "type": "string",
+            "format": "date"
+          },
+          "Test": {
+            "type": "string"
           }
         }
       },
@@ -1108,14 +1116,22 @@
             "type": "boolean",
             "default": true
           },
+          "last_logged_in": {
+            "type": "string",
+            "format": "date-time"
+          },
           "badges": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "profileData": {
-            "type": "object"
+          "account_created": {
+            "type": "string",
+            "format": "date"
+          },
+          "Test": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"
