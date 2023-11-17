@@ -88,7 +88,27 @@ function StudentProfile() {
               <Tab>Earned Badges</Tab>
             </TabList>
             <TabPanel>
-              Featured Projects Go Here
+              <tr>
+                <img src="/images/dummy_featured_project.png" height={"125px"} width={"275px"} style={{padding: "10px 20px 10px 20px"}}/>
+                <img src="/images/dummy_featured_project.png" height={"125px"} width={"275px"} style={{padding: "10px 20px 10px 20px"}}/>
+                <img src="/images/dummy_featured_project.png" height={"125px"} width={"275px"} style={{padding: "10px 20px 10px 20px"}}/>
+              </tr>
+              <tr>
+                <i style={{display: "inline-grid", width: "275px", padding: "10px 20px 10px 20px"}}>The Boggert</i>
+                <i style={{display: "inline-grid", width: "275px", padding: "10px 20px 10px 20px"}}>The Boggert</i>
+                <i style={{display: "inline-grid", width: "275px", padding: "10px 20px 10px 20px"}}>The Boggert</i>
+              </tr>
+              <tr><p></p></tr>
+              <tr>
+                <img src="/images/dummy_featured_project.png" height={"125px"} width={"275px"} style={{padding: "10px 20px 10px 20px"}}/>
+                <img src="/images/dummy_featured_project.png" height={"125px"} width={"275px"} style={{padding: "10px 20px 10px 20px"}}/>
+                <img src="/images/dummy_featured_project.png" height={"125px"} width={"275px"} style={{padding: "10px 20px 10px 20px"}}/>
+              </tr>
+              <tr>
+                <i style={{display: "inline-grid", width: "275px", padding: "10px 20px 10px 20px"}}>The Boggert</i>
+                <i style={{display: "inline-grid", width: "275px", padding: "10px 20px 10px 20px"}}>The Boggert</i>
+                <i style={{display: "inline-grid", width: "275px", padding: "10px 20px 10px 20px"}}>The Boggert</i>
+              </tr>
             </TabPanel>
             <TabPanel>
             <BadgeList
