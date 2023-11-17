@@ -194,6 +194,20 @@ export const postJoin = async (code, ids) =>
     error: 'Login failed.',
   });
 
+  export const createBadge = async (fd) =>
+    makeRequest({
+      method: POST,
+      path: `${server}/badges`,
+      data: {
+        name: fd.name,
+        description: fd.description,
+        criteria: fd.criteria,
+        image_url: fd.icon,
+      },
+      auth: true,
+      error: 'Failed to store new badge.',
+    });
+
 export const createActivity = async (activity, learningStandard) =>
   makeRequest({
     method: POST,

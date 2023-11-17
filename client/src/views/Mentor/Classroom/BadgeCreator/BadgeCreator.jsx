@@ -1,5 +1,6 @@
 import './BadgeCreator.less';
 import React, { useState } from 'react';
+import {createBadge} from '../../../../Utils/requests';
 
 // Sanitizing user input to prevent XSS and other cyber attacks
 const sanitizeInput = (input) => {
@@ -38,7 +39,7 @@ function BadgeCreator() {
   };
 
   // Handler for form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     // Cyber security measures. 
@@ -54,34 +55,17 @@ function BadgeCreator() {
     formData.append('icon', badgeIcon);
 
     // TODO: Post formData to the server
-    const serverEndpoint = 'https://yourserver.com/api/badges';
-
-  // Use the Fetch API to send the form data to the server
-  fetch(serverEndpoint, {
-    method: 'POST',
-    body: formData,
-    // Note: When sending FormData, the 'Content-Type' header should not be set
-    // as the browser will set it to 'multipart/form-data' with the correct boundary
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    const response = await createBadge(formData);
+    console.log(response);
+    if (response.err) {
+      message.error(response.err)
     }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Success:', data);
-    // Reset the form fields
+  
     setBadgeName('');
     setBadgeDescription('');
     setBadgeCriteria('');
     setBadgeIcon(null);
-  })
-  .catch(error => {
-    console.error('Error submitting form:', error);
-    // Handle errors here (e.g., show an error message)
-  });
-
+  
   
 };
     
