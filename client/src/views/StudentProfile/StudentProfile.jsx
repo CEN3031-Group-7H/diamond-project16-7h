@@ -2,24 +2,24 @@ import { message } from 'antd';
 import React, { useEffect, useState, useMemo } from 'react';
 import { Tab, Tabs, TabPanel, TabList } from 'react-tabs';
 import 'react-tabs/style/react-tabs.less';
-import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
-import { useGlobalState } from '../../Utils/userState';
 import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClassroom } from '../../Utils/requests';
 import './StudentProfile.less';
 import BadgeList from './BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
-import SearchProfile from './SearchProfile.jsx';
 import Search from '../../components/Search.jsx';
+import StudentList from '../../components/StudentList.jsx';
 
 
 function StudentProfile() {
 
   const [currentStudent, setCurrentStudent] = useState(null);
+  const [studentsInClassroom, setStudentsInClassroom] = useState([]);
   const [badgesArr, setBadgesArr] = useState([]);  
   const [editMode, setEditMode] = useState(false);
   const [searchFilter, setSearchFilter] = useState('');
   const [filteredStudents, setFilteredStudents] = useState([]);
+  const [selected, selectedUpdate] = useState();
 
   const [junkForUpdate, updateViaJunk] = useState(0); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
 
@@ -37,13 +37,28 @@ function StudentProfile() {
           badgesArr.push(currentVal.name);
         });
         setBadgesArr(badgesArr);
+
+        getStudentClassroom().then((res) => {
+          if (res.data.classroom) {
+            // Get the students in the classroom
+            const classroomCode = res.data.classroom.code;
+            getStudents(classroomCode).then((res) => {
+              if(res.data) {
+                setStudentsInClassroom(res.data);
+                console.log(res.data);
+              } else {
+                message.error(res.error);
+              }
+            });
+          } else {
+            message.error(res.err);
+          }
+        });
       } else {
         message.error(res.err);
       }
     });
   }
-
-  console.log(badgesArr);
 
   function handleToggleBadgeVisibility(badgeId) {
     // Find the badge with the given id
@@ -73,36 +88,6 @@ function StudentProfile() {
         message.error('Failed to update badge visibility: ' + error.message);
       });
   }
-  
-  useEffect(() => {
-    getCurrentStudents().then((res) => {
-      if (res.data) {
-        setCurrentStudent(res.data.students[0]);
-        const badgesObj = res.data.students[0].badges;
-        var badgesArr = [];
-        badgesObj.forEach(function (currentVal) {
-          badgesArr.push(currentVal.name);
-        });
-        setBadgesArr(badgesArr);
-      } else {
-        message.error(res.err);
-      }
-    });
-  }, []);
-  
-  useEffect(() => {
-    const searchAndUpdate = async () => {
-      const { data: filteredStudents, err } = await getStudents(searchFilter);
-
-      if (err) {
-        console.error(err);
-      } else {
-        setFilteredStudents(filteredStudents || []);
-      }
-    };
-
-    searchAndUpdate();
-  }, [searchFilter]);
 
   return (
     <div className='container nav-padding'>
@@ -137,12 +122,14 @@ function StudentProfile() {
             </BadgeList>
             </TabPanel>
             <TabPanel>
-            <SearchProfile filterUpdate={setSearchFilter} />
-            <ul>
-                {filteredStudents.map((student) => (
-                  <li key={student.id}>{student.name}</li>
-                ))}
-              </ul>
+              <Search
+                filterUpdate={setSearchFilter}
+              />
+              <StudentList
+                students={studentsInClassroom}
+                searchFilter={searchFilter}
+                selectedUpdate={selectedUpdate}
+              />
             </TabPanel>
           </Tabs>
         </div>
