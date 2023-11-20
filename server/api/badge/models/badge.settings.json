@@ -30,6 +30,9 @@
     },
     "default_visible": {
       "type": "boolean"
+    },
+    "criteria": {
+      "type": "string"
     }
   }
 }

@@ -652,6 +652,9 @@
           "default_visible": {
             "type": "boolean"
           },
+          "criteria": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -680,6 +683,9 @@
           },
           "default_visible": {
             "type": "boolean"
+          },
+          "criteria": {
+            "type": "string"
           },
           "published_at": {
             "type": "string",

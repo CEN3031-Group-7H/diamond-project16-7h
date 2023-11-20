@@ -59,6 +59,14 @@ export const getTeachers = async () =>
     auth: true,
     error: 'Teachers could not be retrieved.',
   });
+  // created this by coping getStudentClassroom. need it to initialize badges for creation. 11/20
+  export const getTeacherClassroom = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/classrooms/teacher`,
+    auth: true,
+    error: 'Classroom information could not be retrieved',
+  });
 
 export const getAllClassrooms = async () =>
   makeRequest({
@@ -194,16 +202,12 @@ export const postJoin = async (code, ids) =>
     error: 'Login failed.',
   });
 
-  export const createBadge = async (fd) =>
+  export const createBadge = async (badgeData) =>
+  
     makeRequest({
       method: POST,
       path: `${server}/badges`,
-      data: {
-        name: fd.name,
-        description: fd.description,
-        criteria: fd.criteria,
-        image_url: fd.icon,
-      },
+      data: badgeData,
       auth: true,
       error: 'Failed to store new badge.',
     });
