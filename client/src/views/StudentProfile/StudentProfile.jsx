@@ -9,6 +9,7 @@ import BadgeList from './BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
 import Search from '../../components/Search.jsx';
 import StudentList from '../../components/StudentList.jsx';
+import StudentInfo from '../../components/StudentInfo.jsx';
 
 
 function StudentProfile() {
@@ -18,11 +19,9 @@ function StudentProfile() {
   const [badgesArr, setBadgesArr] = useState([]);  
   const [editMode, setEditMode] = useState(false);
   const [searchFilter, setSearchFilter] = useState('');
-  const [filteredStudents, setFilteredStudents] = useState([]);
-  const [selected, selectedUpdate] = useState();
+  const [selectedStudent, setSelectedStudent] = useState();
 
   const [junkForUpdate, updateViaJunk] = useState(0); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
-
 
   // Get the currently logged in student (if not already retrieved)
   if(!currentStudent) {
@@ -128,7 +127,11 @@ function StudentProfile() {
               <StudentList
                 students={studentsInClassroom}
                 searchFilter={searchFilter}
-                selectedUpdate={selectedUpdate}
+                setSelectedStudent={setSelectedStudent}
+              />
+              <StudentInfo
+                students={studentsInClassroom}
+                selectedStudent={selectedStudent}
               />
             </TabPanel>
           </Tabs>

@@ -4,9 +4,12 @@ function StudentList(props) {
     .map(student => {  // create a mapped table of the filtered list
         return (
             // Create onClick listener to capture student id being selected
-            <tr key={student.id} onClick={() => props.selectedUpdate(student.id)}>
+            <tr key={student.id} onClick={() => {
+                props.setSelectedStudent(student.id);
+                console.log(student.id);
+              }
+            }>
               <td>{student.name} </td>
-              <td> {student.badges} </td>
             </tr>
         );
       });
