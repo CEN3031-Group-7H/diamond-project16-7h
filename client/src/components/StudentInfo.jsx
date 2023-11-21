@@ -20,16 +20,30 @@ function StudentInfo(props) {
     return (
       <div>
         <i>Click on a name to view more information</i>
+        <p></p>
         <div>
           {/* Print info if it exists */}
           <>{ studentInfo &&
             <div> {/* Container for student info */}
               <p>Name: {studentInfo.name}</p>
+              <p>Member Since: {studentInfo.created_at.substring(0,studentInfo.created_at.indexOf("T"))}</p>
               {/* Print badges if they exist */}
-              <>{ studentInfo.badges &&
-                <p>Badges: {studentInfo.badges}</p>
+              <div className='badge-grid'>
+                { studentInfo.badges && 
+                    studentInfo.badges.map((badge, index) => {
+                        return (
+                        <div key={index} className="badge-item">
+                        {badge.image_url && (
+                        <img className="badge-icon" src={badge.image_url} alt={badge.name} />
+                        )}
+                        {badge.name && (
+                        <p className="badge-name">{badge.name}</p>
+                        )}
+                        </div>
+                        );
+                    })
                 }
-              </>
+              </div>
             </div>
           }</> {/* End of student info */}
         </div>
