@@ -1,6 +1,8 @@
+import { createBadge } from '../../../../Utils/requests';
 import './BadgeCreator.less';
 import React, { useState } from 'react';
 import {createBadge, getTeacherClassroom} from '../../../../Utils/requests';
+
 
 // Sanitizing user input to prevent XSS and other cyber attacks
 const sanitizeInput = (input) => {
@@ -49,9 +51,9 @@ function BadgeCreator() {
       default_visible: true,
     };
 
-    // TODO: Post formData to the server
-    console.log(badgeData);
-    const response = await createBadge(badgeData);
+    // Call requests.js function to store the badge on the backend
+    
+    const response = await createBadge(formData);
     console.log(response);
     if (response.err) {
       message.error(response.err)

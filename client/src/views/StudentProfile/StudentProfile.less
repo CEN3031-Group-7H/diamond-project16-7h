@@ -61,3 +61,30 @@
 #box select:focus {
   width: 220px;
 }
+
+.badge-item {
+  /* Style for individual badges */
+  border: 0px solid rgb(200, 200, 200);
+  padding: 16px;
+  position: relative;
+}
+
+.badge-grid {
+  /* Style for gridding badges */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
+  gap: 16px; /* Adjust the gap between items as needed */
+  align-content: start; /* Add this line to align items to the start of each row */
+  justify-content: start;
+  margin: 6px;
+}
+
+.badge-icon {
+  width: 50%;
+  height: 75%;
+}
+
+.badge-name{
+    color: #colors[text-primary];
+    font-style: italic;
+}

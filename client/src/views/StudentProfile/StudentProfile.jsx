@@ -2,24 +2,26 @@ import { message } from 'antd';
 import React, { useEffect, useState, useMemo } from 'react';
 import { Tab, Tabs, TabPanel, TabList } from 'react-tabs';
 import 'react-tabs/style/react-tabs.less';
-import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
-import { useGlobalState } from '../../Utils/userState';
 import { getCurrentStudents, updateBadgeVisibility, getStudents, getStudentClassroom } from '../../Utils/requests';
 import './StudentProfile.less';
 import BadgeList from '../BadgeList/BadgeList.jsx';
 import BadgeToggle from '../../components/BadgeToggle.jsx';
-
+import Search from '../../components/Search.jsx';
+import StudentList from '../../components/StudentList.jsx';
+import StudentInfo from '../../components/StudentInfo.jsx';
 
 
 function StudentProfile() {
 
   const [currentStudent, setCurrentStudent] = useState(null);
+  const [studentsInClassroom, setStudentsInClassroom] = useState([]);
   const [badgesArr, setBadgesArr] = useState([]);  
   const [editMode, setEditMode] = useState(false);
+  const [searchFilter, setSearchFilter] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState();
 
   const [junkForUpdate, updateViaJunk] = useState(0); // Currently experiencing issues with setCurrentStudent not triggering a rerender.
-
 
   // Get the currently logged in student (if not already retrieved)
   if(!currentStudent) {
@@ -34,14 +36,28 @@ function StudentProfile() {
           badgesArr.push(currentVal.name);
         });
         setBadgesArr(badgesArr);
+
+        getStudentClassroom().then((res) => {
+          if (res.data.classroom) {
+            // Get the students in the classroom
+            const classroomCode = res.data.classroom.code;
+            getStudents(classroomCode).then((res) => {
+              if(res.data) {
+                setStudentsInClassroom(res.data);
+                console.log(res.data);
+              } else {
+                message.error(res.error);
+              }
+            });
+          } else {
+            message.error(res.err);
+          }
+        });
       } else {
         message.error(res.err);
       }
     });
   }
-
-  console.log(badgesArr);
-  console.log(currentStudent);
 
   function handleToggleBadgeVisibility(badgeId) {
     // Find the badge with the given id
@@ -71,8 +87,6 @@ function StudentProfile() {
         message.error('Failed to update badge visibility: ' + error.message);
       });
   }
-  
-  
 
   return (
     <div className='container nav-padding'>
@@ -86,6 +100,7 @@ function StudentProfile() {
             <TabList align='start'>
               <Tab>Featured Projects</Tab>
               <Tab>Earned Badges</Tab>
+              <Tab>Classmates</Tab>
             </TabList>
             <TabPanel>
               <tr>
@@ -125,7 +140,20 @@ function StudentProfile() {
                 <BadgeToggle key={badge.id} badge={badge} onToggle={handleToggleBadgeVisibility} />
               ))}
             </BadgeList>
-
+            </TabPanel>
+            <TabPanel>
+              <Search
+                filterUpdate={setSearchFilter}
+              />
+              <StudentList
+                students={studentsInClassroom}
+                searchFilter={searchFilter}
+                setSelectedStudent={setSelectedStudent}
+              />
+              <StudentInfo
+                students={studentsInClassroom}
+                selectedStudent={selectedStudent}
+              />
             </TabPanel>
           </Tabs>
         </div>
