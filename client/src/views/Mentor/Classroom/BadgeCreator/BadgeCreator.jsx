@@ -1,4 +1,3 @@
-import { createBadge } from '../../../../Utils/requests';
 import './BadgeCreator.less';
 import React, { useState } from 'react';
 import {createBadge, getTeacherClassroom} from '../../../../Utils/requests';

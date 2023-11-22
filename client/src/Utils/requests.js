@@ -225,20 +225,6 @@ export const createActivity = async (activity, learningStandard) =>
     error: 'Login failed.',
   });
 
-  export const createBadge = async (fD) =>
-    makeRequest({
-      method: POST,
-      path: `${server}/badges`,
-      data: {
-        name: fD.name,
-        description: fD.description,
-       // criteria: fD.criteria,
-        image_url: fD.icon
-      },
-      auth: true,
-      error: 'Failed to store new badge.',
-    });
-
 export const setEnrollmentStatus = async (id, enrolled) =>
   makeRequest({
     method: PUT,
