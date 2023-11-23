@@ -7,7 +7,7 @@ function StudentInfo(props) {
     const [studentInfo, setStudentInfo] = useState(null);
 
     // Find the corresponding data based off the selected student's id and display its data (if there is one selected)
-    if(props.selectedStudent) {
+    if(props.selectedStudent && (!studentInfo || (props.selectedStudent != studentInfo.id))) {
         getStudent(props.selectedStudent).then((res) => {
             if(res.data) {
                 setStudentInfo(res.data);
@@ -31,6 +31,10 @@ function StudentInfo(props) {
               <div className='badge-grid'>
                 { studentInfo.badges && 
                     studentInfo.badges.map((badge, index) => {
+                      // Skip rendering if the badge is hidden for that student
+                      if (studentInfo.profileData && studentInfo.profileData.hiddenBadges && studentInfo.profileData.hiddenBadges.includes( badge.id )) {
+                        return null;
+                      } else {
                         return (
                         <div key={index} className="badge-item">
                         {badge.image_url && (
@@ -41,6 +45,7 @@ function StudentInfo(props) {
                         )}
                         </div>
                         );
+                      }
                     })
                 }
               </div>

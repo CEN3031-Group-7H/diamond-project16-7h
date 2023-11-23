@@ -55,7 +55,8 @@ module.exports = {
           name: student.name,
           character: student.character,
           badges: student.badges,
-          created_at: student.created_at
+          created_at: student.created_at,
+          profileData: student.profileData
         };
       });
     }
