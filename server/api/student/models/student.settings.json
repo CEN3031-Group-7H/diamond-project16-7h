@@ -40,11 +40,8 @@
       "collection": "badge",
       "dominant": true
     },
-    "account_created": {
-      "type": "date"
-    },
-    "Test": {
-      "type": "string"
+    "profileData": {
+      "type": "json"
     }
   }
 }
