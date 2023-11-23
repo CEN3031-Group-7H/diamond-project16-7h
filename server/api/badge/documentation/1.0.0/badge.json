@@ -634,11 +634,8 @@
                     "type": "string"
                   }
                 },
-                "account_created": {
-                  "type": "string"
-                },
-                "Test": {
-                  "type": "string"
+                "profileData": {
+                  "type": "object"
                 },
                 "created_by": {
                   "type": "string"

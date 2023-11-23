@@ -88,7 +88,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                             <img 
                                 src={badge.image_url} 
                                 alt={badge.name} 
-                                class="badge-image"
+                                className="badge-image"
                             />
                           )}
                           {badge.name && (
@@ -124,7 +124,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                             <img 
                                 src={badge.image_url} 
                                 alt={badge.name} 
-                                class="badge-image"
+                                className="badge-image"
                             />
                             )}
                             {badge.name && (
@@ -167,7 +167,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                             <img 
                                 src={badge.image_url} 
                                 alt={badge.name} 
-                                class="badge-image"
+                                className="badge-image"
                             />
                         )}
                         {badge.name && (

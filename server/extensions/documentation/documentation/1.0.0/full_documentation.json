@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/20/2023 7:26:36 PM"
+    "x-generation-date": "11/23/2023 12:51:53 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12867,11 +12867,8 @@
                     "type": "string"
                   }
                 },
-                "account_created": {
-                  "type": "string"
-                },
-                "Test": {
-                  "type": "string"
+                "profileData": {
+                  "type": "object"
                 },
                 "created_by": {
                   "type": "string"
@@ -13239,11 +13236,8 @@
                     "type": "string"
                   }
                 },
-                "account_created": {
-                  "type": "string"
-                },
-                "Test": {
-                  "type": "string"
+                "profileData": {
+                  "type": "object"
                 },
                 "created_by": {
                   "type": "string"
@@ -14235,11 +14229,8 @@
                   "type": "string"
                 }
               },
-              "account_created": {
-                "type": "string"
-              },
-              "Test": {
-                "type": "string"
+              "profileData": {
+                "type": "object"
               },
               "created_by": {
                 "type": "string"
@@ -14742,11 +14733,8 @@
                     "type": "string"
                   }
                 },
-                "account_created": {
-                  "type": "string"
-                },
-                "Test": {
-                  "type": "string"
+                "profileData": {
+                  "type": "object"
                 },
                 "created_by": {
                   "type": "string"
@@ -15190,12 +15178,8 @@
               }
             }
           },
-          "account_created": {
-            "type": "string",
-            "format": "date"
-          },
-          "Test": {
-            "type": "string"
+          "profileData": {
+            "type": "object"
           }
         }
       },
@@ -15233,12 +15217,8 @@
               "type": "string"
             }
           },
-          "account_created": {
-            "type": "string",
-            "format": "date"
-          },
-          "Test": {
-            "type": "string"
+          "profileData": {
+            "type": "object"
           },
           "created_by": {
             "type": "string"
