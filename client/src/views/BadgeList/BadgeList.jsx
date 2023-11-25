@@ -85,7 +85,11 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                     return (
                         <div key={index} className="badge-item">
                           {badge.image_url && (
-                            <img src={badge.image_url} alt={badge.name} height = "200" />
+                            <img 
+                                src={badge.image_url} 
+                                alt={badge.name} 
+                                className="badge-image"
+                            />
                           )}
                           {badge.name && (
                             <p className="badge-name">{badge.name}</p>
@@ -117,7 +121,11 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                         <div>
                         <div key={index} className="badge-item">
                             {badge.image_url && (
-                                <img src={badge.image_url} alt={badge.name} height = "200" />
+                            <img 
+                                src={badge.image_url} 
+                                alt={badge.name} 
+                                className="badge-image"
+                            />
                             )}
                             {badge.name && (
                                 <p className="badge-name">{badge.name}</p>
@@ -156,7 +164,11 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                         <div>
                         <div key={index} className="badge-item">
                         {badge.image_url && (
-                            <img src={badge.image_url} alt={badge.name} height = "200" />
+                            <img 
+                                src={badge.image_url} 
+                                alt={badge.name} 
+                                className="badge-image"
+                            />
                         )}
                         {badge.name && (
                             <p className="badge-name">{badge.name}</p>

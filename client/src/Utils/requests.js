@@ -59,6 +59,14 @@ export const getTeachers = async () =>
     auth: true,
     error: 'Teachers could not be retrieved.',
   });
+  // created this by coping getStudentClassroom. need it to initialize badges for creation. 11/20
+  export const getTeacherClassroom = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/classrooms/teacher`,
+    auth: true,
+    error: 'Classroom information could not be retrieved',
+  });
 
 export const getAllClassrooms = async () =>
   makeRequest({
@@ -193,6 +201,16 @@ export const postJoin = async (code, ids) =>
     },
     error: 'Login failed.',
   });
+
+  export const createBadge = async (badgeData) =>
+  
+    makeRequest({
+      method: POST,
+      path: `${server}/badges`,
+      data: badgeData,
+      auth: true,
+      error: 'Failed to store new badge.',
+    });
 
 export const createActivity = async (activity, learningStandard) =>
   makeRequest({
@@ -727,3 +745,19 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Failed to update badge visibility.',
   });
+
+export const searchStudentsByName = async (searchText) => {
+  const { data, err } = await getAllStudents();
+
+  if (err) {
+    console.error(err);
+    return { data: [], err: 'Failed to retrieve students.' };
+  }
+
+  const filteredStudents = data.filter((student) =>
+    student.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  return { data: filteredStudents, err: null };
+};
+

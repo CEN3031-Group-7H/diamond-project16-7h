@@ -1,5 +1,7 @@
 import './BadgeCreator.less';
 import React, { useState } from 'react';
+import {createBadge, getTeacherClassroom} from '../../../../Utils/requests';
+
 
 // Sanitizing user input to prevent XSS and other cyber attacks
 const sanitizeInput = (input) => {
@@ -23,22 +25,12 @@ function BadgeCreator() {
   const [badgeName, setBadgeName] = useState('');
   const [badgeDescription, setBadgeDescription] = useState('');
   const [badgeCriteria, setBadgeCriteria] = useState('');
-  const [badgeIcon, setBadgeIcon] = useState(null);
+  const [badgeImageUrl, setImageUrl] = useState('');
 
-  const handleIconChange = (event) => {
-    const file = event.target.files[0];
-    const validImageTypes = ['image/png', 'image/jpeg', 'image/heic'];
-    
-    if (file && validImageTypes.includes(file.type)) {
-      setBadgeIcon(file);
-    } else {
-      alert('Please select an image file (png, jpeg, heic).');
-      event.target.value = ''; // Clear the file input
-    }
-  };
+  
 
   // Handler for form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     // Cyber security measures. 
@@ -46,42 +38,31 @@ function BadgeCreator() {
     const sanitizedBadgeDescription = sanitizeInput(badgeDescription);
     const sanitizedBadgeCriteria = sanitizeInput(badgeCriteria);
   
-    // Create a FormData object to hold the file data
-    const formData = new FormData();
-    formData.append('name', sanitizedBadgeName);
-    formData.append('description', sanitizedBadgeDescription);
-    formData.append('criteria', sanitizedBadgeCriteria);
-    formData.append('icon', badgeIcon);
+    // Create a json object to hold the badge data
+    const badgeData = {
+      name: sanitizedBadgeName,
+      description: sanitizedBadgeDescription,
+      criteria: sanitizedBadgeCriteria,
+      image_url: badgeImageUrl, // Assuming this is a URL or base64 encoded string
+      classroom: "aClass",
+      //getTeacherClassroom(),
+      students: [],
+      default_visible: true,
+    };
 
-    // TODO: Post formData to the server
-    const serverEndpoint = 'https://yourserver.com/api/badges';
-
-  // Use the Fetch API to send the form data to the server
-  fetch(serverEndpoint, {
-    method: 'POST',
-    body: formData,
-    // Note: When sending FormData, the 'Content-Type' header should not be set
-    // as the browser will set it to 'multipart/form-data' with the correct boundary
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    // Call requests.js function to store the badge on the backend
+    
+    const response = await createBadge(formData);
+    console.log(response);
+    if (response.err) {
+      message.error(response.err)
     }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Success:', data);
-    // Reset the form fields
+  
     setBadgeName('');
     setBadgeDescription('');
     setBadgeCriteria('');
     setBadgeIcon(null);
-  })
-  .catch(error => {
-    console.error('Error submitting form:', error);
-    // Handle errors here (e.g., show an error message)
-  });
-
+  
   
 };
     
@@ -91,6 +72,8 @@ function BadgeCreator() {
   const handleNameChange = (event) => setBadgeName(event.target.value);
   const handleDescriptionChange = (event) => setBadgeDescription(event.target.value);
   const handleCriteriaChange = (event) => setBadgeCriteria(event.target.value);
+  const handleImageUrlChange = (event) => setImageUrl(event.target.value);
+
 
   return (
     <div className="badge-creator">
@@ -125,12 +108,12 @@ function BadgeCreator() {
           />
         </div>
         <div>
-          <label htmlFor="badgeIcon">Badge Icon:</label>
+          <label htmlFor="badgeImageUrl">Badge Image URL:</label>
           <input
-            type="file"
-            id="badgeIcon"
-            onChange={handleIconChange}
-            accept="image/png, image/jpeg, image/heic"
+            type="text"
+            id="badgeImageUrl"
+            value={badgeImageUrl}
+            onChange={handleImageUrlChange}
             required
           />
         </div>
