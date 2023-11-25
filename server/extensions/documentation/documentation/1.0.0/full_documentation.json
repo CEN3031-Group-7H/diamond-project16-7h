@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/16/2023 3:52:21 AM"
+    "x-generation-date": "11/17/2023 7:12:05 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12858,14 +12858,20 @@
                 "enrolled": {
                   "type": "boolean"
                 },
+                "last_logged_in": {
+                  "type": "string"
+                },
                 "badges": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "profileData": {
-                  "type": "object"
+                "account_created": {
+                  "type": "string"
+                },
+                "Test": {
+                  "type": "string"
                 },
                 "created_by": {
                   "type": "string"
@@ -13218,14 +13224,20 @@
                 "enrolled": {
                   "type": "boolean"
                 },
+                "last_logged_in": {
+                  "type": "string"
+                },
                 "badges": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "profileData": {
-                  "type": "object"
+                "account_created": {
+                  "type": "string"
+                },
+                "Test": {
+                  "type": "string"
                 },
                 "created_by": {
                   "type": "string"
@@ -14205,14 +14217,20 @@
               "enrolled": {
                 "type": "boolean"
               },
+              "last_logged_in": {
+                "type": "string"
+              },
               "badges": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "profileData": {
-                "type": "object"
+              "account_created": {
+                "type": "string"
+              },
+              "Test": {
+                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -14706,14 +14724,20 @@
                 "enrolled": {
                   "type": "boolean"
                 },
+                "last_logged_in": {
+                  "type": "string"
+                },
                 "badges": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "profileData": {
-                  "type": "object"
+                "account_created": {
+                  "type": "string"
+                },
+                "Test": {
+                  "type": "string"
                 },
                 "created_by": {
                   "type": "string"
@@ -15107,6 +15131,10 @@
             "type": "boolean",
             "default": true
           },
+          "last_logged_in": {
+            "type": "string",
+            "format": "date-time"
+          },
           "badges": {
             "type": "array",
             "items": {
@@ -15150,8 +15178,12 @@
               }
             }
           },
-          "profileData": {
-            "type": "object"
+          "account_created": {
+            "type": "string",
+            "format": "date"
+          },
+          "Test": {
+            "type": "string"
           }
         }
       },
@@ -15179,14 +15211,22 @@
             "type": "boolean",
             "default": true
           },
+          "last_logged_in": {
+            "type": "string",
+            "format": "date-time"
+          },
           "badges": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "profileData": {
-            "type": "object"
+          "account_created": {
+            "type": "string",
+            "format": "date"
+          },
+          "Test": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

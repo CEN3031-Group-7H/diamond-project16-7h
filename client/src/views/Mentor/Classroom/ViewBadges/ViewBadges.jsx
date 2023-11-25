@@ -20,28 +20,28 @@ function ViewBadges() {
       setToggleText((state) => (state === "List" ? "Tile" : "List"));
     }
     return (
-        <div className="badgePane">
-          <MentorSubHeader
-            title={'ViewBadges'}
-          />
-          <div className={"view-badge-container"}>
-            <button
-              id='add-new-button'
-              onClick={handleAddBadge}
-            >
-              <img src={createButton} alt="Add new badge"/>
-            </button>
-
-            <button
-              id='remove-button'
-              // Perhaps edit mode? Or maybe drag and drop feature?
-            >
-              <img src={removeButton} alt="Edit/Remove badge"/>
-            </button>
-            <button id = "toggle-button" variant="contained" onClick={toggle}></button>
-            <h3>{toggleText}</h3>
-          </div>
+      
+      <div className="badgePane">
+        <MentorSubHeader
+          title={'ViewBadges'}
+        />
+        <div className={"view-badge-container"}>
+          <button
+            id='add-new-button'
+            onClick={handleAddBadge}
+          >
+            <img src={createButton} alt="Add new badge" />
+          </button>
+          <button
+            id='remove-button'
+          // Perhaps edit mode? Or maybe drag and drop feature?
+          >
+            <img src={removeButton} alt="Edit/Remove badge" />
+          </button>
+          <button id="toggle-button" variant="contained" onClick={toggle}></button>
+          <h3>{toggleText}</h3>
         </div>
+      </div>
         
       );
 }
