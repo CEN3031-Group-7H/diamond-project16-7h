@@ -131,6 +131,24 @@ export const getStudentClassroom = async () =>
 export const getClassrooms = async (ids) =>
   Promise.all(ids.map(async (id) => (await getClassroom(id)).data));
 
+export const getClassroomSize = async (id) =>
+makeRequest({
+  method: GET,
+  path: `${server}/classrooms/countStudents/${id}`,
+  auth: true,
+  error: 'Classroom size could not be retrieved',
+});
+export const getBadgeEarnCt = async (id, badgeId) =>
+makeRequest({
+  method: GET,
+  path: `${server}/classrooms/countBadgeEarners/${id}`,
+  data: {
+    badgeId: badgeId,
+  },
+  auth: true,
+  error: 'Badge earner count could not be retrieved',
+})
+
 export const getStudents = async (code) =>
   makeRequest({
     method: GET,
@@ -672,3 +690,31 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Unable to retrive classroom workspaces',
   });
+<<<<<<< Updated upstream
+=======
+
+  export const getBadge = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/badges/${id}`,
+    auth: true,
+    error: 'Badge info could not be retrieved.',
+  });
+
+
+export const searchStudentsByName = async (searchText) => {
+  const { data, err } = await getAllStudents();
+
+  if (err) {
+    console.error(err);
+    return { data: [], err: 'Failed to retrieve students.' };
+  }
+
+  const filteredStudents = data.filter((student) =>
+    student.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  return { data: filteredStudents, err: null };
+};
+
+>>>>>>> Stashed changes

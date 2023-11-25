@@ -34,6 +34,24 @@
     },
     {
       "method": "GET",
+      "path": "/classrooms/countStudents/:id",
+      "handler": "classroom.countStudents",
+      "auth": true,
+      "config": {
+        "policies": ["global::isStudent"]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/countBadgeEarners/:id",
+      "handler": "classroom.countBadgeEarners",
+      "auth": true,
+      "config": {
+        "policies": ["global::isStudent"]
+      }
+    },
+    {
+      "method": "GET",
       "path": "/classroom/workspaces/:id",
       "handler": "classroom.workspaces",
       "config": {

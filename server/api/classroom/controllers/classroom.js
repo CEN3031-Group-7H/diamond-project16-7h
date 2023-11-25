@@ -60,6 +60,76 @@ module.exports = {
 
     return response;
   },
+    /**
+   * Get the number of students belonging to a valid classroom by id
+   *
+   * @return {int}
+   */
+     async countStudents(ctx) {
+      const { id } = ctx.params;
+      const { classroom } = await strapi.services.classroom.findOne({id: id});
+      // check if the classroom exists
+      
+      if (classroom) {
+        // get only the enrolled students
+        const enrolledStudents = classroom.students.filter(
+          (student) => student.enrolled
+        );
+  
+        // respond with length of enrolled students
+        return enrolledStudents.length;
+      }
+      return 0;
+    },
+  
+    /**
+     * Get the number of students belonging to a valid classroom by id and who have earned the badge corresponding to the id passed
+     * 
+     * @param {string} badgeId The id of the badge we want to count earners of
+     *
+     * @return {int}
+     */
+    async countBadgeEarners(ctx) {
+  
+      const { id } = ctx.params;
+      const { classroom } = await strapi.services.classroom.findOne({id: id});
+      console.log("counting student in classroom who have earned badge")
+  
+      // ensure request was not sent as formdata
+      if (ctx.is('multipart')) return ctx.badRequest(
+        'Multipart requests are not accepted!',
+        {id: 'Badge.countearners.format.invalid', error: 'ValidationError'}
+      )
+  
+      // ensure the request has the right number of params
+      const params = Object.keys(ctx.request.body).length
+      if (params !== 1) return ctx.badRequest(
+          'Invalid number of params!',
+          {id: 'Badge.countearners.body.invalid', error: 'ValidationError'}
+      )
+  
+      // validate the request
+      const {badgeId} = ctx.request.body
+      if (typeof badgeId !== typeof(2)) return ctx.badRequest(
+          'An badge ID must be provided!',
+          {id: 'Badge.countearners.body.invalid', error: 'ValidationError'}
+      )
+  
+      // find badge
+      let badge = await strapi.services.badge.findOne({id: id})
+      if (!badge) return ctx.notFound(
+          'The badge id provided does not correspond to a valid badge!',
+          {id: 'Badge.countearners.id.invalid', error: 'ValidationError'}
+      )
+      
+      // get the badge from the current classroom
+      const selection = await strapi.services.selection.findOne(
+        { classroom: ids, current: true },
+        ['classroom.badges']
+      );
+      console.log(selection);
+    },
+  
 
   /**
    * Create a new classroom with a unqiue code
