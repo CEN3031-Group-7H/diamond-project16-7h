@@ -5,37 +5,47 @@ button{
 }
 .hideBadgeButton{
     /* Style for button to click to hide a shown badge */
-    display:block;
-    background-color: #de5b5b;
-    width: 30px;
-    height: 30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f89797;
+    width: 36px;
+    height: 36px;
     
     border-radius: 50%;
-    border: 2px solid #colors[secondary] ;
+    border: 3px solid #b14343 ;
+    font-size: 28px;
 
     position: absolute;
     top: 0px;
     right: 0px;
+
+    padding-bottom: 4px;
 }
 .hideBadgeButton:hover {
-    background-color: #823d3d;
+    background-color: #b14343;
 }
 .showBadgeButton{
     /* Style for button to click to show a hidden badge */
-    display:block;
-    background-color: #75de5b;
-    width: 30px;
-    height: 30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #86e96d;
+    width: 36px;
+    height: 36px;
     
     border-radius: 50%;
-    border: 2px solid #colors[secondary] ;
+    border: 3px solid #58b541 ;
+    font-size: 26px;
 
     position: absolute;
     top: 0px;
     right: 0px;
+
+    padding-bottom: 4px;
 }
 .showBadgeButton:hover {
-    background-color: #40823d;
+    background-color: #58b541;
 }
 
 .toggleEditButton{
@@ -52,6 +62,7 @@ button{
     margin-top: -50px;
     margin-right: 16px;
     margin-left: auto;
+    padding: 10px;
 }
 .toggleEditButton:hover {
     font-weight: 1000;
