@@ -1086,12 +1086,8 @@
               }
             }
           },
-          "account_created": {
-            "type": "string",
-            "format": "date"
-          },
-          "Test": {
-            "type": "string"
+          "profileData": {
+            "type": "object"
           }
         }
       },
@@ -1129,12 +1125,8 @@
               "type": "string"
             }
           },
-          "account_created": {
-            "type": "string",
-            "format": "date"
-          },
-          "Test": {
-            "type": "string"
+          "profileData": {
+            "type": "object"
           },
           "created_by": {
             "type": "string"

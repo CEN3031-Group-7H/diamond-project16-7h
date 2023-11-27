@@ -4,8 +4,42 @@ import MentorSubHeader from '../../../../components/MentorSubHeader/MentorSubHea
 import { useNavigate } from 'react-router-dom';
 import createButton from './images/create.png';
 import removeButton from './images/remove.png';
+import {getMentor, getTeacherClassroom} from '../../../../Utils/requests';
 
 function ViewBadges() {
+  /*
+  // Fill an array with all classrooms a teacher belngs to
+  const [teacherClasses, setTeacherClasses] = useState([]);
+
+  // Fill an array with all badges of a selected classroom
+  const [teacherBadges, setTeacherBadges] = useState([]);
+
+   // Iterate through whatever data structure holds the badges and add them to the teacherbadges array
+   // Stores all mentor classes by code.
+   var detectedClasses = [];
+   var detectedBadges = [];
+  
+   //==== Collect all classes pertaining to mentor into an array ====//
+  const backendClasses = getMentorClassrooms()
+  backendClasses.forEach(
+    function (classroomIter) {
+      detectedClasses.push(classRoomIter.code)
+    }
+  );
+  setTeacherClasses(detectedClasses);
+  
+  // To be used to select which classes badges to obtain
+  const chosenCode = 0;
+  //==== Collect all badges pertaining to mentor's class into an array ====//
+  const backendBadges = getTeacherClassroom(chosenCode);
+  backendBadges.forEach(
+    function (currentBadge) {
+      detectedBadges.push(currentBadge);
+    }
+  );
+  setTeacherBadges(detectedBadges);
+*/
+
   const navigate = useNavigate();
 
   // This is used when the add badge button is clicked

@@ -68,6 +68,30 @@ export const getTeachers = async () =>
     error: 'Classroom information could not be retrieved',
   });
 
+
+
+  // ==== USED FOR VIEW BADGES ==== //
+  // Code to obtain all classes pertaining to a mentor (Thomas Chang)
+export const getMentorClassrooms = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/mentors/classrooms`,
+    auht: true,
+    error: "Mentor classroom could not be retrieved"
+  });
+
+  // Code to obtain all badges in a classroom. (Thomas Chang)
+export const getClassroomBadges = async (id) =>
+ makeRequest({
+   method: GET,
+   path: `${server}/classrooms/${id}/badges`,
+   auht: true,
+   error: "Classroom badges could not be retrieved"
+ });
+ // ==== USED FOR VIEW BADGES ==== //
+
+
+
 export const getAllClassrooms = async () =>
   makeRequest({
     method: GET,
