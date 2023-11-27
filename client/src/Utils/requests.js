@@ -139,6 +139,24 @@ export const getStudentClassroom = async () =>
 export const getClassrooms = async (ids) =>
   Promise.all(ids.map(async (id) => (await getClassroom(id)).data));
 
+  export const getClassroomSize = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/classrooms/countStudents/${id}`,
+    auth: true,
+    error: 'Classroom size could not be retrieved',
+  });
+  export const getBadgeEarnCt = async (id, badgeId) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/classrooms/countBadgeEarners/${id}`,
+    data: {
+      badgeId: badgeId,
+    },
+    auth: true,
+    error: 'Badge earner count could not be retrieved',
+  })
+
 export const getStudents = async (code) =>
   makeRequest({
     method: GET,
