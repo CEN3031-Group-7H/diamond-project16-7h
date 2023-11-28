@@ -11,14 +11,14 @@
 }
 
 #classrooms-container {
-  margin: 6vh auto 4vh auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  margin: -1vh auto 2vh auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
   width: 80vw;
   height: auto;
   background: #colors[senary];
-  border-radius: 5px;
-  border: 2px solid #colors[secondary];
+  border-radius: 25px;
+  border: 5px solid #314a6a;
 }
 
 #dashboard-card-container {
@@ -26,39 +26,44 @@
   grid-template-columns: auto auto;
   justify-content: center;
   width: 80vw;
-  margin: auto auto auto 2%;
+  margin: auto auto auto auto;
 }
 
 #dashboard-class-card {
   display: flex;
   flex-direction: row;
   text-align: center;
-  width: 24vw;
+  width: 25vw;
   height: auto;
-  margin: auto 6vh 6vh auto;
+  margin: auto 4vh 4vh auto;
   background: #colors[tertiary];
   color: #colors[text-primary];
-  border: none;
-  border-color: #colors[secondary];
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
+  //border: none;
+  //border-color: #colors[secondary];
+  border-radius: 25px;
+  border: 4px solid #9d841c;
+  
 
   #card-button-container {
     // margin: 10% auto 0 auto;
 
     button {
-      width: 9vw;
-      height: auto;
-      font-size: 1vw;
+      padding: 0.1em;
+      min-width: 7vw;
+      max-width: 8vw;
+      //height: auto;
+      font-size: 1.1vh;
       font-weight: 500;
-      border-radius: 30px;
-      margin: 10% auto auto auto;
-      background: #colors[quaternary];
-      border: none;
+      border-radius: 20px;
+      margin: .5em;
+      background: #ffeda6;
       color: #colors[text-primary];
       transition: 0.25s;
       cursor: pointer;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
+      border: 3px solid #e4c757;
+      //text-align: center;
+      
+
 
       &:hover {
         width: 10vw;
@@ -74,34 +79,34 @@
     justify-content: center;
     align-items: center;
     width: 72%;
-    padding: 24px 24px;
+    padding: 0.25em 1em;
 
     #card-title {
       text-align: center;
-      font-size: 1.4vw;
-      margin: 10px;
-      line-height: 1.6vw;
+      font-size: 1.55vw;
+      margin: .5em;
+      line-height: 1.75vw;
     }
   }
 
   #card-right-content-container {
     display: flex;
     flex-direction: column;
-    min-width: 28%;
+    min-width: 30%;
 
     #number {
-      font-size: 1.4vw;
+      font-size: 1.6vw;
       margin: 0;
-      padding-top: 20px;
+      padding-top: .5em;
     }
 
     #label {
-      font-size: 1vw;
-      padding-bottom: 20px;
+      font-size: 1.1vw;
+      padding-bottom: .25em;
     }
 
     #dashboard-display-code-modal {
-      height: 49.5%;
+      height: 100%;
 
       #dashboard-display-code-btn {
         display: flex;
@@ -110,9 +115,12 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
-        background-color: #colors[quaternary];
-        border-top-right-radius: 10px;
-        border: none;
+        background-color: #ffe888;
+        border-top-right-radius: 20px;
+        border-left: 3px solid #c6ad4a;
+        border-bottom: 3px solid #c6ad4a;
+        border-top: 3px solid #ffe888;
+        border-right: 3px solid #ffe888;
 
         &:hover {
           background: #colors[quinary];
@@ -136,9 +144,10 @@
       align-items: center;
       flex-direction: column;
       width: 100%;
-      height: 49.5%;
-      background-color: #colors[quaternary];
-      border-bottom-right-radius: 10px;
+      height: 100%;
+      background-color: #ffe888;
+      border-bottom-right-radius: 20px;
+      border-left: 3px solid #c6ad4a;
     }
   }
 }
