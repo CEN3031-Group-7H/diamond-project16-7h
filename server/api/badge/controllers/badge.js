@@ -58,7 +58,15 @@ module.exports = {
         // Directly create a badge from the request body without validation or handling multiple badges
         try {
           // The create operation might still throw an error if there's something wrong with the data or the server
-          const badge = await strapi.services.badge.create(ctx.request.body);
+          const {name, description, criteria, image_url, classroom, students, default_visible} = ctx.request.body;
+          const badge = await strapi.services.badge.create({
+            name: name,
+            description: description,
+            image_url: image_url,
+            classroom: classroom,
+            criteria: criteria,
+            default_visible: default_visible
+          });
           return badge; // Return the newly created badge
         } catch (error) {
           // Log the error and return a server error message
@@ -66,6 +74,7 @@ module.exports = {
           return ctx.internalServerError('Failed to store new badge.');
         }
       }
+    
 /*
     async create(ctx) {
       const {badge} = ctx.request.body

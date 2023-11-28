@@ -1,6 +1,7 @@
 import './BadgeCreator.less';
 import React, { useState } from 'react';
-import {createBadge, getTeacherClassroom} from '../../../../Utils/requests';
+import {createBadge, getClassroom, getTeacherClassroom} from '../../../../Utils/requests';
+import { message } from 'antd';
 
 
 // Sanitizing user input to prevent XSS and other cyber attacks
@@ -20,7 +21,7 @@ const sanitizeInput = (input) => {
     return input;
   };  
 
-function BadgeCreator() {
+function BadgeCreator({ classroomId }) {
   // State for each input field
   const [badgeName, setBadgeName] = useState('');
   const [badgeDescription, setBadgeDescription] = useState('');
@@ -37,6 +38,7 @@ function BadgeCreator() {
     const sanitizedBadgeName = sanitizeInput(badgeName);
     const sanitizedBadgeDescription = sanitizeInput(badgeDescription);
     const sanitizedBadgeCriteria = sanitizeInput(badgeCriteria);
+    const classroomResponse = await getClassroom(classroomId);
   
     // Create a json object to hold the badge data
     const badgeData = {
@@ -44,15 +46,14 @@ function BadgeCreator() {
       description: sanitizedBadgeDescription,
       criteria: sanitizedBadgeCriteria,
       image_url: badgeImageUrl, // Assuming this is a URL or base64 encoded string
-      classroom: "aClass",
-      //getTeacherClassroom(),
+      classroom: classroomResponse.data,
       students: [],
       default_visible: true,
     };
 
     // Call requests.js function to store the badge on the backend
     
-    const response = await createBadge(formData);
+    const response = await createBadge(badgeData);
     console.log(response);
     if (response.err) {
       message.error(response.err)
@@ -61,7 +62,7 @@ function BadgeCreator() {
     setBadgeName('');
     setBadgeDescription('');
     setBadgeCriteria('');
-    setBadgeIcon(null);
+    setImageUrl(null);
   
   
 };

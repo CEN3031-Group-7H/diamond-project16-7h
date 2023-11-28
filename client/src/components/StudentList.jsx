@@ -3,18 +3,27 @@ function StudentList(props) {
     const studentList = props.students.filter(student => student.name.toLowerCase().includes(props.searchFilter.toLowerCase()))
     .map(student => {  // create a mapped table of the filtered list
         return (
-            // Create onClick listener to capture student id being selected
-            <tr key={student.id} onClick={() => {
-                props.setSelectedStudent(student.id);
-                console.log(student.id);
-              }
-            }>
-              <td>{student.name} </td>
-            </tr>
+          // Create onClick listener to capture student id being selected
+          <tr key={student.id} onClick={() => {
+              props.setSelectedStudent(student.id);
+              console.log(student.id);
+            }
+          }>
+            <td align="center">{student.name}</td>
+          </tr>
         );
       });
   
-    return <>{studentList}</>; // render the table of data
+    return (
+      <div style={{overflowY: 'auto', height: '8em', width: '25%', margin: '1em'}}>
+        <p></p>
+        <table align="center">
+          <tbody>
+            {studentList}
+          </tbody>
+        </table>
+      </div>
+    ); // render the table of data
   }
   
   export default StudentList;
