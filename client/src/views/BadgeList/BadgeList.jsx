@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { initHiddenBadges, setBadgeHidden, setBadgeShown, updateStudent } from '../../Utils/requests';
 import './BadgeList.less';
+import BadgeDetails from '../BadgeDetails/BadgeDetails.jsx';
 
+Modal.setAppElement('#root');
 
 /**
  * @param {string} currentStudent The currently shown profile's student
@@ -9,8 +12,15 @@ import './BadgeList.less';
  * @param {Boolean} editMode Whether to display profile in edit mode
  * @param {Boolean} isOwnProfile
  */
-function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, isOwnProfile, junkForUpdate, updateViaJunk} ){
-    console.log("rendering BadgeList")
+ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, isOwnProfile} ){
+
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedBadge, setSelectedBadge] = useState({}); 
+    const openModal = (badge) => {
+        setSelectedBadge(badge);
+        setModalOpen(true);
+      };
+    const closeModal = () => setModalOpen(false);
 
     if(currentStudent == null){
         // handle logged out student
@@ -68,6 +78,12 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
         //else if edit mode off
         return(
             <div>
+                <BadgeDetails
+                    isOpen={isModalOpen}
+                    onRequestClose={closeModal}
+                    selectedBadge={selectedBadge}
+                />
+
             {isOwnProfile && (
                 <div id='editButton'>
                 <button className='toggleEditButton' onClick={() => setEditMode(!editMode)}>✎</button>
@@ -89,6 +105,7 @@ function BadgeList( {currentStudent, setCurrentStudent, editMode, setEditMode, i
                                 src={badge.image_url} 
                                 alt={badge.name} 
                                 className="badge-image"
+                                onClick={() => {openModal(badge);}}
                             />
                           )}
                           {badge.name && (
