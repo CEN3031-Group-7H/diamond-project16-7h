@@ -76,6 +76,7 @@ module.exports = {
         // get the student that is currently logged in
         const {ids, session} = ctx.state.user
         const students = await strapi.services.student.find({ id: ids}, ["badges",])
+        console.log(ctx);
 
         // ensure request was not sent as formdata
         if (ctx.is('multipart')) return ctx.badRequest(

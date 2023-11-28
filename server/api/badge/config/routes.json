@@ -25,6 +25,15 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/badges/countEarners/:id",
+      "handler": "badge.countEarners",
+      "auth": true,
+      "config": {
+        "policies": ["global::isStudent"]
+      }
+    },
+    {
       "method": "POST",
       "path": "/badges",
       "handler": "badge.create",

@@ -146,16 +146,13 @@ export const getClassrooms = async (ids) =>
     auth: true,
     error: 'Classroom size could not be retrieved',
   });
-  export const getBadgeEarnCt = async (id, badgeId) =>
+  export const getBadgeEarnCt = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/classrooms/countBadgeEarners/${id}`,
-    data: {
-      badgeId: badgeId,
-    },
+    path: `${server}/badges/countEarners/${id}`,
     auth: true,
     error: 'Badge earner count could not be retrieved',
-  })
+  });
 
 export const getStudents = async (code) =>
   makeRequest({
