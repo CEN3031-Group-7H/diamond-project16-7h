@@ -24,7 +24,7 @@ function ViewBadges({ classroomId }) {
   // This is used when the add badge button is clicked
   const handleAddBadge = () => {
     // Change url to badge creator
-    navigate('/classroom/10?tab=BadgeCreator');
+    navigate('/classroom/'+ classroomId + '?tab=BadgeCreator');
     // Refresh page
     window.location.reload();
   }
