@@ -142,18 +142,20 @@ function StudentProfile() {
             </BadgeList>
             </TabPanel>
             <TabPanel>
-              <Search
-                filterUpdate={setSearchFilter}
-              />
-              <StudentList
-                students={studentsInClassroom}
-                searchFilter={searchFilter}
-                setSelectedStudent={setSelectedStudent}
-              />
-              <StudentInfo
-                students={studentsInClassroom}
-                selectedStudent={selectedStudent}
-              />
+              <div align='center'>
+                <Search
+                  filterUpdate={setSearchFilter}
+                />
+                <StudentList
+                  students={studentsInClassroom}
+                  searchFilter={searchFilter}
+                  setSelectedStudent={setSelectedStudent}
+                />
+                <StudentInfo
+                  students={studentsInClassroom}
+                  selectedStudent={selectedStudent}
+                />
+              </div>
             </TabPanel>
           </Tabs>
         </div>
