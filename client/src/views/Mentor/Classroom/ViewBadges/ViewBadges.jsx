@@ -4,41 +4,20 @@ import MentorSubHeader from '../../../../components/MentorSubHeader/MentorSubHea
 import { useNavigate } from 'react-router-dom';
 import createButton from './images/create.png';
 import removeButton from './images/remove.png';
-import {getMentor, getTeacherClassroom} from '../../../../Utils/requests';
+import {getClassroom, deleteBadge} from '../../../../Utils/requests';
 
-function ViewBadges() {
-  /*
-  // Fill an array with all classrooms a teacher belngs to
-  const [teacherClasses, setTeacherClasses] = useState([]);
+var backendBadges = null;
 
+function ViewBadges({ classroomId }) {
   // Fill an array with all badges of a selected classroom
   const [teacherBadges, setTeacherBadges] = useState([]);
 
-   // Iterate through whatever data structure holds the badges and add them to the teacherbadges array
-   // Stores all mentor classes by code.
-   var detectedClasses = [];
-   var detectedBadges = [];
-  
-   //==== Collect all classes pertaining to mentor into an array ====//
-  const backendClasses = getMentorClassrooms()
-  backendClasses.forEach(
-    function (classroomIter) {
-      detectedClasses.push(classRoomIter.code)
-    }
-  );
-  setTeacherClasses(detectedClasses);
-  
-  // To be used to select which classes badges to obtain
-  const chosenCode = 0;
   //==== Collect all badges pertaining to mentor's class into an array ====//
-  const backendBadges = getTeacherClassroom(chosenCode);
-  backendBadges.forEach(
-    function (currentBadge) {
-      detectedBadges.push(currentBadge);
-    }
-  );
-  setTeacherBadges(detectedBadges);
-*/
+  if (!backendBadges) {
+    backendBadges = getClassroom(classroomId).then((res) => {
+      setTeacherBadges(res.data.badges);
+    })
+  }
 
   const navigate = useNavigate();
 
@@ -49,6 +28,17 @@ function ViewBadges() {
     // Refresh page
     window.location.reload();
   }
+
+  const handleRemoveBadge = () => {
+    if (teacherBadges.length > 0) {
+      setTeacherBadges(teacherBadges.slice(0,-1));
+      //console.log(teacherBadges);
+      //console.log(teacherBadges[teacherBadges.length - 1].id);
+      //deleteBadge(teacherBadges[teacherBadges.length - 1].id);
+    }
+  }
+
+
     const[toggleText, setToggleText] = useState("Tile");
     const toggle = () => {
       setToggleText((state) => (state === "List" ? "Tile" : "List"));
@@ -69,14 +59,39 @@ function ViewBadges() {
           <button
             id='remove-button'
           // Perhaps edit mode? Or maybe drag and drop feature?
+            onClick={handleRemoveBadge}
           >
             <img src={removeButton} alt="Edit/Remove badge" />
           </button>
           <button id="toggle-button" variant="contained" onClick={toggle}></button>
           <h3>{toggleText}</h3>
+          
+          {/* Ronan viewbadge code*/}
+          <div className="badge-grid">
+                {teacherBadges.map((badge, index) => {
+                    // Skip rendering if the badge is hidden for that student
+                    return (
+                        <div key={index} className="badge-item">
+                          {badge.image_url && (
+                            <img 
+                                src={badge.image_url} 
+                                alt={badge.name} 
+                                className="badge-image"
+                            />
+                          )}
+                          {badge.name && (
+                            <p className="badge-name">{badge.name}</p>
+                          )}
+                        </div>
+                    );
+                })}
+            </div>
+            {/* Ronan viewbadge code*/}
+
+          
+
         </div>
       </div>
-        
       );
 }
 

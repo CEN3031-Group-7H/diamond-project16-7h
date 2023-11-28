@@ -69,7 +69,7 @@ export const getTeachers = async () =>
   });
 
 
-
+/*
   // ==== USED FOR VIEW BADGES ==== //
   // Code to obtain all classes pertaining to a mentor (Thomas Chang)
 export const getMentorClassrooms = async () =>
@@ -89,7 +89,7 @@ export const getClassroomBadges = async (id) =>
    error: "Classroom badges could not be retrieved"
  });
  // ==== USED FOR VIEW BADGES ==== //
-
+*/
 
 
 export const getAllClassrooms = async () =>
@@ -234,6 +234,16 @@ export const postJoin = async (code, ids) =>
       data: badgeData,
       auth: true,
       error: 'Failed to store new badge.',
+    });
+
+  // REMOVE BADGE FOR BADGE VIEW
+  export const deleteBadge = async (id) =>
+  
+    makeRequest({
+      method: DELETE,
+      path: `${server}/badges/${id}`,
+      auth: true,
+      error: 'Failed to delete badge.',
     });
 
 export const createActivity = async (activity, learningStandard) =>

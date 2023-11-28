@@ -57,7 +57,7 @@ export default function Classroom({
           <BadgeCreator />
         </TabPane>
         <TabPane tab='View Badges' key='ViewBadges'>
-          <ViewBadges />
+          <ViewBadges classroomId = {id}/>
         </TabPane>
       </Tabs>
     </div>

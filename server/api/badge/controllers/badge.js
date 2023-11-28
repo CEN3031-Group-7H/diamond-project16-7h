@@ -31,6 +31,7 @@ module.exports = {
           return ctx.internalServerError('Failed to store new badge.');
         }
       }
+    
 /*
     async create(ctx) {
       const {badge} = ctx.request.body
