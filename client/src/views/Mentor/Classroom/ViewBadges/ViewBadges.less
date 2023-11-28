@@ -1,3 +1,5 @@
+@import '../../../../assets/style.less';
+
 .badgePane {
     height: 2000px;
     position: relative;
@@ -18,15 +20,14 @@
 
 // Styling for button for adding new badges
 #add-new-button {
-    position: sticky;
-    top: 0;
+    position: fixed;
     background-color: rgb(100,200,100);
     width: 60px;
     height: 60px;
     
     
-    //top: 220px;
-    //right: 185px;
+    top: 220px;
+    right: 185px;
 }
 
 // Styling for button for removing badges
@@ -51,4 +52,40 @@ h3 {
     position: fixed;
     top: 235px;
     left: 200px;
+}
+
+.badge-grid {
+    /* Style for gridding badges */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
+    gap: 32px; /* Adjust the gap between items as needed */
+    align-content: start; /* Add this line to align items to the start of each row */
+    justify-content: start;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    margin-right: 96px;
+  }
+.badge-item {
+    /* Style for individual badges */
+    border: 0px solid rgb(200, 200, 200);
+    padding: 16px;
+    position: relative;
+    display: inline-block;
+}
+.badge-name{
+      color: #colors[text-primary];
+      font-style: italic;
+}
+.badge-image {
+    max-width: 300px;
+    max-height: 200px;
+    height: 100%;
+    width: 100%;
+}
+.badge-image:hover {
+    max-width: 306px;
+    max-height: 204px;
+    height: 102%;
+    width: 102%;
 }
