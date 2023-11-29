@@ -82,6 +82,7 @@ Modal.setAppElement('#root');
                     isOpen={isModalOpen}
                     onRequestClose={closeModal}
                     selectedBadge={selectedBadge}
+                    teacherView={false}
                 />
 
             {isOwnProfile && (

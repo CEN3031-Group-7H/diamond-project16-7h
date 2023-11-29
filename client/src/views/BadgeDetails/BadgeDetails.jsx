@@ -158,8 +158,65 @@ function MainBadgeInfo(badgeToDisp){
     }
     
 }
-function TeacherOnlyBadgeInfo(){
+function setupTeacherView(classId, badgeId, classStudents, setClassStudents, setOriginallyEarned, setHasToggled){
+  //make a requrest to get students in classroom
+  getClassroom(classId).then((resClass)=>{
+    if(resClass.data){
+      setClassStudents(resClass.data.students);
+
+      //make a request to get students who have earned the badge
+      getBadge(badgeId).then((resBadge)=>{
+        const earnedStudents = resBadge.students;
+        let earnedData = [];
+        if(resBadge.data){
+
+          classStudents.array.forEach(student => {
+            if(earnedStudents.find(student.id)){
+              earnedData.push(true);
+            }
+            else{
+              earnedData.push(false);
+            }
+          });
+          setOriginallyEarned(earnedData);
+          setHasToggled(new Array(earnedData.length).fill(false))
+        }
+        else{
+          message.error(resBadge.error);
+        }
+      })
+    }
+    else{
+      message.error(resClass.error);
+    }
+  })
+}
+
+function TeacherOnlyBadgeInfo(badgeId, classStudents, originallyEarned, hasToggled, setHasToggled){
+
+  function toggleStudentEarnship(index){
+    hasToggled[index] = !hasToggled[index];
+    setHasToggled(hasToggled);
+  }
+
+  classStudents.map(student, i => {
+    return (
+        <div>
+          <tr key={i}>
+            <td>{student.code} </td>
+            <td onClick={() => toggleStudentEarnship(i)}> {( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] ) } </td>{/*just directly display true/false for now, will make checkbox eventually */}
+          </tr>
+          <button onClick={() => applyChanges(badgeId, classStudents, originallyEarned, hasToggled)}>💾</button>
+        </div>
+    );
+  });
+
+  //as teacher checks and unchecks students, add changes to some 
   
+}
+
+function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
+  //make api calls for each true value in hasToggled to assign/unassign student based on value in originallyEarned
 }
 
 
@@ -168,6 +225,21 @@ function TeacherOnlyBadgeInfo(){
  */
  const BadgeDetails = ({ isOpen, onRequestClose, selectedBadge, teacherView }) => {
      console.log(selectedBadge)
+    if(teacherView){
+      const [classStudents, setClassStudents] = useState({}); //students in the classroom
+      const [originallyEarned, setOriginallyEarned] = useState([]); //bool of whether the student had earned the badge when the page loaded
+      const [hasToggled, setHasToggled] = useState([]); //bool of whether the teacher has changed the badge earnership of the corresponding student
+      setupTeacherView({
+        classId: selectedBadge.classroom, 
+        badgeId : selectedBadge.id, 
+        classStudents : classStudents, 
+        setClassStudents : setClassStudents, 
+        setOriginallyEarned : setOriginallyEarned, 
+        setHasToggled : setHasToggled
+      }) //i feel like this will get called each rerender and we obviously dont want that
+        //not sure how to fix that though
+    }
+
     return (
       <Modal
       isOpen={isOpen}
@@ -180,7 +252,7 @@ function TeacherOnlyBadgeInfo(){
           </div>
           <div>
             {teacherView &&(
-              TeacherOnlyBadgeInfo(selectedBadge)
+              TeacherOnlyBadgeInfo(selectedBadge.id, classStudents, originallyEarned, hasToggled, setHasToggled)
             )}
           </div>
           <button
