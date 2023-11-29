@@ -7,22 +7,30 @@ import removeButton from './images/remove.png';
 import {getClassroom, deleteBadge} from '../../../../Utils/requests';
 
 var backendBadges = null;
+var badgeAdded = 0;
 
 function ViewBadges({ classroomId }) {
   // Fill an array with all badges of a selected classroom
   const [teacherBadges, setTeacherBadges] = useState([]);
 
   //==== Collect all badges pertaining to mentor's class into an array ====//
+ 
   if (!backendBadges) {
     backendBadges = getClassroom(classroomId).then((res) => {
       setTeacherBadges(res.data.badges);
     })
   }
 
+  if (badgeAdded == 1) {
+    badgeAdded = 0;
+    window.location.reload();
+  }
+
   const navigate = useNavigate();
 
   // This is used when the add badge button is clicked
   const handleAddBadge = () => {
+    badgeAdded = 1;
     // Change url to badge creator
     navigate('/classroom/'+ classroomId + '?tab=BadgeCreator');
     // Refresh page
@@ -34,7 +42,7 @@ function ViewBadges({ classroomId }) {
       setTeacherBadges(teacherBadges.slice(0,-1));
       //console.log(teacherBadges);
       //console.log(teacherBadges[teacherBadges.length - 1].id);
-      //deleteBadge(teacherBadges[teacherBadges.length - 1].id);
+      deleteBadge(teacherBadges[teacherBadges.length - 1].id);
     }
   }
 
