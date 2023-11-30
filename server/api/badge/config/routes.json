@@ -30,7 +30,7 @@
       "handler": "badge.countEarners",
       "auth": true,
       "config": {
-        "policies": ["global::isStudent"]
+        "policies": []
       }
     },
     {
