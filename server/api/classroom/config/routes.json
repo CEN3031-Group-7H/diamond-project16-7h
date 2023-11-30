@@ -38,7 +38,7 @@
       "handler": "classroom.countStudents",
       "auth": true,
       "config": {
-        "policies": ["global::isStudent"]
+        "policies": []
       }
     },
     {

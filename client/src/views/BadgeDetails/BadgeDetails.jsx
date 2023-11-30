@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { getBadge, getClassroomSize, getBadgeEarnCt} from '../../Utils/requests';
+import { getBadge, getClassroom, getClassroomSize, getBadgeEarnCt} from '../../Utils/requests';
 import './BadgeDetails.less';
 
 
@@ -57,7 +57,7 @@ import './BadgeDetails.less';
 /**
  * @param {collection} badge        The id of the badge whose information is being requested
  */
-function MainBadgeInfo(badgeToDisp){
+const MainBadgeInfo = ({ badgeToDisp, stats, setStats }) => {
     /*
     getBadge(badgeId).then((res) => {
         if (res.data) {
@@ -90,7 +90,6 @@ function MainBadgeInfo(badgeToDisp){
     //see ../../../../server/api/badge/documentation/badge.json
     console.log(badgeToDisp, badgeToDisp.id);
     if(!(badgeToDisp==null) && badgeToDisp != {} && !(badgeToDisp.id==null)){
-      const [stats, setStats] = useState(null);
 
       useEffect(() => {
         const fetchData = async () => {
@@ -107,7 +106,7 @@ function MainBadgeInfo(badgeToDisp){
       }, []); // Empty dependency array to run the effect only once
         //const stats = {message: "Percentage fetching not yet implemented", percentEarned: 0}
         return(
-            <div id='activity-container'>
+            <div>
                 {badgeToDisp.name && (
                 <div id='header'>
                     <div>{badgeToDisp.name}</div>
@@ -125,7 +124,7 @@ function MainBadgeInfo(badgeToDisp){
                     <div>{badgeToDisp.description}</div>
                 </div>
                 )}
-                {stats && stats.percentage ? (
+                {stats ? (
                   <div className='earned-percent-container'>
                     <div className="earned-percent-bar" style={{
                       width: `${stats.percentage}%`,
@@ -192,18 +191,19 @@ function setupTeacherView(classId, badgeId, classStudents, setClassStudents, set
   })
 }
 
-function TeacherOnlyBadgeInfo(badgeId, classStudents, originallyEarned, hasToggled, setHasToggled){
+const TeacherOnlyBadgeInfo = ({badgeId, classStudents, originallyEarned, hasToggled, setHasToggled})=>{
 
   function toggleStudentEarnship(index){
     hasToggled[index] = !hasToggled[index];
     setHasToggled(hasToggled);
   }
+  console.log(classStudents);
 
-  classStudents.map(student, i => {
+  classStudents.map((student, i) => {
     return (
         <div>
           <tr key={i}>
-            <td>{student.code} </td>
+            <td>{student.name} </td>
             <td onClick={() => toggleStudentEarnship(i)}> {( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] ) } </td>{/*just directly display true/false for now, will make checkbox eventually */}
           </tr>
           <button onClick={() => applyChanges(badgeId, classStudents, originallyEarned, hasToggled)}>💾</button>
@@ -225,10 +225,15 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
  */
  const BadgeDetails = ({ isOpen, onRequestClose, selectedBadge, teacherView }) => {
      console.log(selectedBadge)
-    if(teacherView){
-      const [classStudents, setClassStudents] = useState({}); //students in the classroom
-      const [originallyEarned, setOriginallyEarned] = useState([]); //bool of whether the student had earned the badge when the page loaded
-      const [hasToggled, setHasToggled] = useState([]); //bool of whether the teacher has changed the badge earnership of the corresponding student
+
+
+     const [classStudents, setClassStudents] = useState([]); //students in the classroom
+     const [originallyEarned, setOriginallyEarned] = useState([]); //bool of whether the student had earned the badge when the page loaded
+     const [hasToggled, setHasToggled] = useState([]); //bool of whether the teacher has changed the badge earnership of the corresponding student
+     const [stats, setStats] = useState(null); //stuff about percent of classrom which has earned
+
+
+    if(teacherView && classStudents == null){
       setupTeacherView({
         classId: selectedBadge.classroom, 
         badgeId : selectedBadge.id, 
@@ -236,8 +241,7 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
         setClassStudents : setClassStudents, 
         setOriginallyEarned : setOriginallyEarned, 
         setHasToggled : setHasToggled
-      }) //i feel like this will get called each rerender and we obviously dont want that
-        //not sure how to fix that though
+      })
     }
 
     return (
@@ -248,11 +252,17 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
       >
         <div style={{ position: 'relative' }}>
           <div>
-            {MainBadgeInfo(selectedBadge)}
+            <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats}/>
           </div>
           <div>
             {teacherView &&(
-              TeacherOnlyBadgeInfo(selectedBadge.id, classStudents, originallyEarned, hasToggled, setHasToggled)
+              <TeacherOnlyBadgeInfo 
+                badgeId = {selectedBadge.id}
+                classStudents = {classStudents}
+                originallyEarned = {originallyEarned}
+                hasToggled = {hasToggled}
+                setHasToggled = {setHasToggled}
+              />
             )}
           </div>
           <button
