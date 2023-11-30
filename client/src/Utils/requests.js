@@ -269,6 +269,30 @@ export const updateBadge = async (id, updateData) =>
       auth: true,
       error: `Failed to update badge`,
     });
+export const unassignBadge = async (id, studentId) =>
+    makeRequest({
+      method: PUT,
+      path: `${server}/badges/${id}`,
+      data: {
+        students: {
+          disconnect: [ studentId ]
+        }
+      },
+      auth: true,
+      error: `Failed to unassign badge ${id} from student ${studentId}`,
+    });
+  export const assignBadge = async (id, studentId) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/badges/${id}`,
+    data: {
+      students: {
+        connect: [ studentId ]
+      }
+    },
+    auth: true,
+    error: `Failed to assign badge to student`,
+  });
 
 export const createActivity = async (activity, learningStandard) =>
   makeRequest({

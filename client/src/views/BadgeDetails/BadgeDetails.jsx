@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { getBadge, getClassroom, getClassroomSize, getBadgeEarnCt} from '../../Utils/requests';
+import { getBadge, getClassroom, getClassroomSize, getBadgeEarnCt, updateBadge, assignBadge, unassignBadge} from '../../Utils/requests';
 import './BadgeDetails.less';
 
 
@@ -157,8 +157,17 @@ const MainBadgeInfo = ({ badgeToDisp, stats, setStats }) => {
     }
     
 }
-function setupTeacherView(classId, badgeId, classStudents, setClassStudents, setOriginallyEarned, setHasToggled){
+/**
+ * 
+ * @param {int} classId
+ * @param {int} badgeId
+ * @param {useState} classStudents_setClassStudents
+ * @param {useState} setOriginallyEarned
+ * @param {useState} setHasToggled
+ */
+const setupTeacherView = ({classId, badgeId, classStudents, setClassStudents, setOriginallyEarned, setHasToggled}) => {
   //make a requrest to get students in classroom
+  console.log(classId);
   getClassroom(classId).then((resClass)=>{
     if(resClass.data){
       setClassStudents(resClass.data.students);
@@ -194,22 +203,34 @@ function setupTeacherView(classId, badgeId, classStudents, setClassStudents, set
 const TeacherOnlyBadgeInfo = ({badgeId, classStudents, originallyEarned, hasToggled, setHasToggled})=>{
 
   function toggleStudentEarnship(index){
-    hasToggled[index] = !hasToggled[index];
-    setHasToggled(hasToggled);
+    let hasToggledTemp = [...hasToggled];
+    hasToggledTemp[index] = !hasToggled[index];
+    setHasToggled(hasToggledTemp);
   }
   console.log(classStudents);
 
-  classStudents.map((student, i) => {
+  const studentTable = classStudents.map((student, i) => {
     return (
         <div>
           <tr key={i}>
             <td>{student.name} </td>
-            <td onClick={() => toggleStudentEarnship(i)}> {( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] ) } </td>{/*just directly display true/false for now, will make checkbox eventually */}
+            <td><button
+              onClick ={() => toggleStudentEarnship(i)}
+              className = {( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] ) ?
+                          "checked-box":
+                          "unchecked-box"} >
+            </button></td>{/*just directly display true/false for now, will make checkbox eventually */}
           </tr>
-          <button onClick={() => applyChanges(badgeId, classStudents, originallyEarned, hasToggled)}>💾</button>
         </div>
     );
   });
+
+  return (
+    <div>
+      <>{studentTable}</>
+      <button onClick={() => applyChanges(badgeId, classStudents, originallyEarned, hasToggled)}>💾</button>
+    </div>
+  );
 
   //as teacher checks and unchecks students, add changes to some 
   
@@ -217,6 +238,17 @@ const TeacherOnlyBadgeInfo = ({badgeId, classStudents, originallyEarned, hasTogg
 
 function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
   //make api calls for each true value in hasToggled to assign/unassign student based on value in originallyEarned
+  hasToggled.map((studentHasToggled, i) =>{
+    if(studentHasToggled){
+      console.log(classStudents[i].id)
+      if(originallyEarned[i]){
+        unassignBadge(badgeId, classStudents[i].id);
+      }
+      else{
+        assignBadge(badgeId, classStudents[i].id);
+      }
+    }
+  })
 }
 
 
@@ -233,9 +265,10 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
      const [stats, setStats] = useState(null); //stuff about percent of classrom which has earned
 
 
-    if(teacherView && classStudents == null){
+    if(teacherView && selectedBadge.id && selectedBadge.classroom && !(classStudents && classStudents.length > 0)) {
+      console.log("getting class info")
       setupTeacherView({
-        classId: selectedBadge.classroom, 
+        classId : selectedBadge.classroom, 
         badgeId : selectedBadge.id, 
         classStudents : classStudents, 
         setClassStudents : setClassStudents, 
