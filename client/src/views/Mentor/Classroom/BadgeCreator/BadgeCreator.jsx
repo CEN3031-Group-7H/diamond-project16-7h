@@ -64,7 +64,7 @@ function BadgeCreator({ classroomId }) {
     setBadgeCriteria('');
     setImageUrl(null);
   
-  
+    window.location.reload();
 };
     
   

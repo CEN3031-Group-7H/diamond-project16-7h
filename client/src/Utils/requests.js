@@ -261,6 +261,15 @@ export const postJoin = async (code, ids) =>
       error: 'Failed to delete badge.',
     });
 
+export const updateBadge = async (id, updateData) =>
+    makeRequest({
+      method: PUT,
+      path: `${server}/badges/${id}`,
+      data: updateData,
+      auth: true,
+      error: `Failed to update badge`,
+    });
+
 export const createActivity = async (activity, learningStandard) =>
   makeRequest({
     method: POST,

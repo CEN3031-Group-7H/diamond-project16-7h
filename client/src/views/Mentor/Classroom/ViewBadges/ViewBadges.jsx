@@ -22,6 +22,7 @@ function ViewBadges({ classroomId }) {
   const closeModal = () => setModalOpen(false);
 
   //==== Collect all badges pertaining to mentor's class into an array ====//
+ 
   if (!backendBadges) {
     backendBadges = getClassroom(classroomId).then((res) => {
       setTeacherBadges(res.data.badges);
@@ -41,17 +42,17 @@ function ViewBadges({ classroomId }) {
   const handleRemoveBadge = () => {
     if (teacherBadges.length > 0) {
       setTeacherBadges(teacherBadges.slice(0,-1));
-      //console.log(teacherBadges);
-      //console.log(teacherBadges[teacherBadges.length - 1].id);
-      //deleteBadge(teacherBadges[teacherBadges.length - 1].id);
+      deleteBadge(teacherBadges[teacherBadges.length - 1].id);
     }
   }
 
-
+    /* Scrapped toggle code
     const[toggleText, setToggleText] = useState("Tile");
     const toggle = () => {
       setToggleText((state) => (state === "List" ? "Tile" : "List"));
     }
+    */
+
     return (
       
       <div className="badgePane">
@@ -79,10 +80,16 @@ function ViewBadges({ classroomId }) {
           >
             <img src={removeButton} alt="Edit/Remove badge" />
           </button>
-          <button id="toggle-button" variant="contained" onClick={toggle}></button>
-          <h3>{toggleText}</h3>
           
-          {/* Ronan viewbadge code*/}
+          {
+          /* Scrapped toggle button
+          button id="toggle-button" variant="contained" onClick={toggle}></button>
+          <h3>{toggleText}</h3>
+          */
+          }
+          
+          
+          {/* Adaptation of BadgeList code from Ronan */}
           <div className="badge-grid">
                 {teacherBadges.map((badge, index) => {
                     // Skip rendering if the badge is hidden for that student
@@ -103,10 +110,6 @@ function ViewBadges({ classroomId }) {
                     );
                 })}
             </div>
-            {/* Ronan viewbadge code*/}
-
-          
-
         </div>
       </div>
       );
