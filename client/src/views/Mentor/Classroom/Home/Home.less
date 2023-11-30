@@ -1,8 +1,8 @@
 @import '../../../../assets//style.less';
 
 #home-content-container {
-  margin: 6vh auto 5vh auto;
-  padding: 5vh 5vw;
+  margin: 1em auto 1em auto;
+  padding: 1.5em 1em;
   width: 80vw;
   height: auto;
   background: rgb(233, 233, 233);
@@ -17,7 +17,15 @@
 
   #lesson-module-expectations {
     font-size: 1.2em;
+    position: relative;
+    height: auto;
+    //align-items: center;
+    //justify-content: center;
     line-height: 1.2em;
+    text-align: center;
+
+    padding: .5em 3em;
+    
   }
 
   #card-btn-container {
@@ -73,12 +81,13 @@
         color: white;
         //display: flex;
         align-items: left;
-        height: 3vh;
+        padding: .5em;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         font-size: 1.3em;
         font-weight: 400;
-        line-height: 1.3em;
+        line-height: 1.5em;
+        //border: 3px solid #000000;
       }
       #view-activity-info {
         display: flex;
@@ -102,18 +111,21 @@
   }
 
   #lesson-module-modal {
-    margin-left: 10px;
+    margin-left: 0px;
 
     #change-lesson-btn {
-      width: auto;
-      height: 2.5vh;
-      font-size: 0.8em;
-      font-weight: 600;
-      border: none;
+      width: 8em;
+      height: 3em;
+      font-size: 1em;
+      font-weight: 500;
+      border: 3px solid #b59d41;
       color: #colors[text-primary];
       background: #colors[quaternary];
       border-radius: 30px;
       transition: 0.25s;
+      padding: .5em;
+      margin: .75em;
+      
       cursor: pointer;
 
       &:hover {
@@ -121,7 +133,7 @@
       }
       #test {
         display: flex;
-        justify-content: right;
+        justify-content: center;
       }
     }
   }
@@ -133,15 +145,16 @@
   right: 10vw;
 
   #display-code-btn {
-    width: 18vw;
-    min-height: 3.5vw;
+    width: 14em;
+    height: auto;
     font-size: 1em;
     font-weight: 500;
-    border-radius: 30px;
-    border: none;
+    border-radius: 25px;
+    border: 4px solid #9a8530;
+    outline: 4px solid #0000000b;
     background: #colors[quaternary];
     color: #colors[text-primary];
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
+    
     transition: 0.25s;
     cursor: pointer;
 
