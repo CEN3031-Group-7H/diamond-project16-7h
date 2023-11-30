@@ -37,11 +37,13 @@ function ViewBadges({ classroomId }) {
     }
   }
 
-
+    /* Scrapped toggle code
     const[toggleText, setToggleText] = useState("Tile");
     const toggle = () => {
       setToggleText((state) => (state === "List" ? "Tile" : "List"));
     }
+    */
+
     return (
       
       <div className="badgePane">
@@ -62,10 +64,16 @@ function ViewBadges({ classroomId }) {
           >
             <img src={removeButton} alt="Edit/Remove badge" />
           </button>
-          <button id="toggle-button" variant="contained" onClick={toggle}></button>
-          <h3>{toggleText}</h3>
           
-          {/* Ronan viewbadge code*/}
+          {
+          /* Scrapped toggle button
+          button id="toggle-button" variant="contained" onClick={toggle}></button>
+          <h3>{toggleText}</h3>
+          */
+          }
+          
+          
+          {/* Adaptation of BadgeList code from Ronan */}
           <div className="badge-grid">
                 {teacherBadges.map((badge, index) => {
                     // Skip rendering if the badge is hidden for that student
@@ -85,10 +93,6 @@ function ViewBadges({ classroomId }) {
                     );
                 })}
             </div>
-            {/* Ronan viewbadge code*/}
-
-          
-
         </div>
       </div>
       );
