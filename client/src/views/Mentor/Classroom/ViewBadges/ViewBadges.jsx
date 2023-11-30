@@ -6,11 +6,20 @@ import createButton from './images/create.png';
 import removeButton from './images/remove.png';
 import {getClassroom, deleteBadge} from '../../../../Utils/requests';
 
+import BadgeDetails from '../../../BadgeDetails/BadgeDetails.jsx';
+
 var backendBadges = null;
 
 function ViewBadges({ classroomId }) {
   // Fill an array with all badges of a selected classroom
   const [teacherBadges, setTeacherBadges] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedBadge, setSelectedBadge] = useState({}); 
+  const openModal = (badge) => {
+      setSelectedBadge(badge);
+      setModalOpen(true);
+    };
+  const closeModal = () => setModalOpen(false);
 
   //==== Collect all badges pertaining to mentor's class into an array ====//
   if (!backendBadges) {
@@ -46,6 +55,13 @@ function ViewBadges({ classroomId }) {
     return (
       
       <div className="badgePane">
+        <BadgeDetails
+                    isOpen={isModalOpen}
+                    onRequestClose={closeModal}
+                    selectedBadge={selectedBadge}
+                    teacherView={true}
+                />
+
         <MentorSubHeader
           title={'ViewBadges'}
         />
@@ -77,6 +93,7 @@ function ViewBadges({ classroomId }) {
                                 src={badge.image_url} 
                                 alt={badge.name} 
                                 className="badge-image"
+                                onClick={() => {openModal(badge);}}
                             />
                           )}
                           {badge.name && (
