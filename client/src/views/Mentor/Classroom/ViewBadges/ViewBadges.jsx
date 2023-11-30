@@ -82,12 +82,12 @@ function ViewBadges({ classroomId }) {
           </button>
           
           {
-          /* Scrapped toggle button
+
+          /* Scrapped toggle button: code left here in case of repurposing fucntionality
           button id="toggle-button" variant="contained" onClick={toggle}></button>
           <h3>{toggleText}</h3>
           */
           }
-          
           
           {/* Adaptation of BadgeList code from Ronan */}
           <div className="badge-grid">
