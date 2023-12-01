@@ -1,4 +1,5 @@
 @import '../../assets/style.less';
+@import '../Student/Student.less';
 
 .missingInfoRectangle{
     /* Style for how to display text explaining no badges for current student */
@@ -14,6 +15,16 @@
     justify-content: center; /* Center text horizontally */
 }
 
+.details-container{
+    .activity-container;
+    position: 'absolute';
+    margin: 10%;
+    width: 60%;
+    background-color: #colors[tertiary];
+}
+.details-modal{
+}
+
 .earned-percent-container {
     width: 300px;
     border: 1px solid #3D5C82;
@@ -27,6 +38,24 @@
     line-height: 30px;
     color: #5BABDE;
   }
+
+.save-button{
+    background-color: #colors[secondary];
+    outline-color: #colors[primary];
+}
+
+.close-button{
+    position: 'absolute';
+    top: '15px';
+    right: '15px';
+    width: '30px';
+    height: '30px';
+    border-radius: '50%';
+    background-color: '#colors[secondary]'; 
+    outline-color: '#colors[primary]'; 
+    color: '#ffffff';
+    border: '1px';
+}
 
 .checked-box {
     margin: 0;

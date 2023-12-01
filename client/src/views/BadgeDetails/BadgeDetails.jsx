@@ -56,7 +56,7 @@ import './BadgeDetails.less';
 /**
  * @param {collection} badge        The id of the badge whose information is being requested
  */
-const MainBadgeInfo = ({ badgeToDisp, stats, setStats, hasToggled}) => {
+const MainBadgeInfo = ({ badgeToDisp, stats, setStats}) => {
     /*
     getBadge(badgeId).then((res) => {
         if (res.data) {
@@ -201,7 +201,7 @@ const setupTeacherView = ({classId, badgeId, classStudents, setClassStudents, se
   })
 }
 
-const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents, originallyEarned, setOriginallyEarned, hasToggled, setHasToggled})=>{
+const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents, originallyEarned, setOriginallyEarned, hasToggled, setHasToggled, onRequestClose})=>{
 
   function toggleStudentEarnship(index){
     let hasToggledTemp = [...hasToggled];
@@ -229,11 +229,12 @@ const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents
   return (
     <div>
       <>{studentTable}</>
-      <button onClick={() => applyChanges(
+      <button className='save-button' onClick={() => applyChanges(
         classId, badgeId, 
         classStudents, setClassStudents,
         originallyEarned, setOriginallyEarned, 
-        hasToggled, setHasToggled)}>💾</button>
+        hasToggled, setHasToggled,
+        onRequestClose)}>💾</button>
     </div>
   );
 
@@ -241,7 +242,7 @@ const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents
   
 }
 
-function applyChanges(classId, badgeId, classStudents, setClassStudents, originallyEarned, setOriginallyEarned, hasToggled, setHasToggled){
+function applyChanges(classId, badgeId, classStudents, setClassStudents, originallyEarned, setOriginallyEarned, hasToggled, setHasToggled, onRequestClose){
   //make api calls for each true value in hasToggled to assign/unassign student based on value in originallyEarned
     let earnedStudents = []
   /*
@@ -275,6 +276,7 @@ function applyChanges(classId, badgeId, classStudents, setClassStudents, origina
         setOriginallyEarned : setOriginallyEarned, 
         setHasToggled : setHasToggled
       })
+      onRequestClose();
     }
   })
 }
@@ -307,13 +309,14 @@ function applyChanges(classId, badgeId, classStudents, setClassStudents, origina
 
     return (
       <Modal
+      className='details-modal'
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Badge Details Popup"
       >
-        <div style={{ position: 'relative' }}>
+        <div className='details-container'>
           <div>
-            <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats} hasToggled={hasToggled}/>
+            <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats}/>
           </div>
           <div>
             {teacherView &&(
@@ -326,23 +329,13 @@ function applyChanges(classId, badgeId, classStudents, setClassStudents, origina
                 setOriginallyEarned = {setOriginallyEarned}
                 hasToggled = {hasToggled}
                 setHasToggled = {setHasToggled}
+                onRequestClose = {onRequestClose}
               />
             )}
           </div>
           <button
+            className='close-button'
             onClick={onRequestClose}
-            style={{
-              position: 'absolute',
-              top: '100px',
-              right: '10px',
-              width: '30px',
-              height: '30px',
-              borderRadius: '50%',
-              backgroundColor: '#3498db', // Blue color
-              color: '#ffffff', // White color
-              border: 'none',
-              cursor: 'pointer',
-            }}
           >
             X
           </button>
