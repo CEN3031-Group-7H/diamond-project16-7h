@@ -85,34 +85,38 @@ button{
 .badge-grid {
     /* Style for gridding badges */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
+    grid-template-columns: repeat(auto-fill, minmax(11.1em, 1fr)); /* Adjust the column width as needed */
     gap: 1em; /* Adjust the gap between items as needed */
     align-content: start; /* Add this line to align items to the start of each row */
     justify-content: start;
     margin: 1em;
+
+
   }
 .badge-item {
     /* Style for individual badges */
     border: 0px solid rgb(200, 200, 200);
-    padding: 1em;
+    padding: 1em .1em;
     position: relative;
     display: inline-block;
 }
 .badge-name{
       color: #colors[text-primary];
       font-style: Arial;
-      padding: 0.25em;
-      margin: .5em 0em 0em 0em;
+      padding: 0.3em;
+      margin: .5em 0em;
 }
 .badge-image {
-    height: 9.5em;
-    width: auto;
+    height: 8em;
+    width: 8em;
     border: 4px solid #00000094; /* Adding a border */
     outline: 2px solid #00000010;
-    border-radius: 25%; /* This will make the image round */
+    border-radius: 35%; /* This will make the image round */
     object-fit: cover;
     transition: transform 1.3s ease; 
 }
+
+
 .badge-image:hover {
     transform: scale(1.1);
     transition: transform .6s ease;
