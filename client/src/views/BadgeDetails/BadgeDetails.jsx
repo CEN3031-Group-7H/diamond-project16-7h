@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { getBadge, getClassroom, getClassroomSize, getBadgeEarnCt, updateBadge, assignBadge, unassignBadge} from '../../Utils/requests';
@@ -57,7 +56,7 @@ import './BadgeDetails.less';
 /**
  * @param {collection} badge        The id of the badge whose information is being requested
  */
-const MainBadgeInfo = ({ badgeToDisp, stats, setStats }) => {
+const MainBadgeInfo = ({ badgeToDisp, stats, setStats, hasToggled}) => {
     /*
     getBadge(badgeId).then((res) => {
         if (res.data) {
@@ -170,16 +169,17 @@ const setupTeacherView = ({classId, badgeId, classStudents, setClassStudents, se
   console.log(classId);
   getClassroom(classId).then((resClass)=>{
     if(resClass.data){
+      console.log(resClass.data.students);
       setClassStudents(resClass.data.students);
 
       //make a request to get students who have earned the badge
       getBadge(badgeId).then((resBadge)=>{
-        const earnedStudents = resBadge.students;
+        const earnedStudents = resBadge.data.students;
         let earnedData = [];
         if(resBadge.data){
 
-          classStudents.array.forEach(student => {
-            if(earnedStudents.find(student.id)){
+          resClass.data.students.forEach(student => {
+            if(earnedStudents.find((earnedStudent) => earnedStudent.id == student.id)){
               earnedData.push(true);
             }
             else{
@@ -187,6 +187,7 @@ const setupTeacherView = ({classId, badgeId, classStudents, setClassStudents, se
             }
           });
           setOriginallyEarned(earnedData);
+          console.log(earnedData);
           setHasToggled(new Array(earnedData.length).fill(false))
         }
         else{
@@ -200,7 +201,7 @@ const setupTeacherView = ({classId, badgeId, classStudents, setClassStudents, se
   })
 }
 
-const TeacherOnlyBadgeInfo = ({badgeId, classStudents, originallyEarned, hasToggled, setHasToggled})=>{
+const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents, originallyEarned, setOriginallyEarned, hasToggled, setHasToggled})=>{
 
   function toggleStudentEarnship(index){
     let hasToggledTemp = [...hasToggled];
@@ -228,7 +229,11 @@ const TeacherOnlyBadgeInfo = ({badgeId, classStudents, originallyEarned, hasTogg
   return (
     <div>
       <>{studentTable}</>
-      <button onClick={() => applyChanges(badgeId, classStudents, originallyEarned, hasToggled)}>💾</button>
+      <button onClick={() => applyChanges(
+        classId, badgeId, 
+        classStudents, setClassStudents,
+        originallyEarned, setOriginallyEarned, 
+        hasToggled, setHasToggled)}>💾</button>
     </div>
   );
 
@@ -236,17 +241,40 @@ const TeacherOnlyBadgeInfo = ({badgeId, classStudents, originallyEarned, hasTogg
   
 }
 
-function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
+function applyChanges(classId, badgeId, classStudents, setClassStudents, originallyEarned, setOriginallyEarned, hasToggled, setHasToggled){
   //make api calls for each true value in hasToggled to assign/unassign student based on value in originallyEarned
+    let earnedStudents = []
+  /*
   hasToggled.map((studentHasToggled, i) =>{
     if(studentHasToggled){
       console.log(classStudents[i].id)
       if(originallyEarned[i]){
-        unassignBadge(badgeId, classStudents[i].id);
+        //unassignBadge(badgeId, classStudents[i].id);
       }
       else{
-        assignBadge(badgeId, classStudents[i].id);
+        //assignBadge(badgeId, classStudents[i].id);
       }
+    }
+  });
+  */
+ classStudents.map((student, i)=>{
+   if(( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] )){
+    earnedStudents.push(classStudents[i]);
+   }
+ })
+  console.log(earnedStudents);
+  updateBadge(badgeId, {students: earnedStudents}).then((res)=>{
+    if(res.err){
+
+    } else {
+      setupTeacherView({
+        classId : classId, 
+        badgeId : badgeId, 
+        classStudents : classStudents, 
+        setClassStudents : setClassStudents, 
+        setOriginallyEarned : setOriginallyEarned, 
+        setHasToggled : setHasToggled
+      })
     }
   })
 }
@@ -255,7 +283,7 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
 /**
  * @param {collection} badge        The badge whose information is being requested
  */
- const BadgeDetails = ({ isOpen, onRequestClose, selectedBadge, teacherView }) => {
+ export const BadgeDetails = ({ isOpen, onRequestClose, selectedBadge, teacherView }) => {
      console.log(selectedBadge)
 
 
@@ -285,14 +313,17 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
       >
         <div style={{ position: 'relative' }}>
           <div>
-            <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats}/>
+            <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats} hasToggled={hasToggled}/>
           </div>
           <div>
             {teacherView &&(
               <TeacherOnlyBadgeInfo 
+                classId = {selectedBadge.classroom}
                 badgeId = {selectedBadge.id}
                 classStudents = {classStudents}
+                setClassStudents = {setClassStudents}
                 originallyEarned = {originallyEarned}
+                setOriginallyEarned = {setOriginallyEarned}
                 hasToggled = {hasToggled}
                 setHasToggled = {setHasToggled}
               />
@@ -320,4 +351,4 @@ function applyChanges(badgeId, classStudents, originallyEarned, hasToggled){
     );
   };
 
-export default BadgeDetails;
+//export default BadgeDetails;

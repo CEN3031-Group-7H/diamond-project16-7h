@@ -6,7 +6,7 @@ import createButton from './images/create.png';
 import removeButton from './images/remove.png';
 import {getClassroom, deleteBadge} from '../../../../Utils/requests';
 
-import BadgeDetails from '../../../BadgeDetails/BadgeDetails.jsx';
+import {BadgeDetails} from '../../../BadgeDetails/BadgeDetails.jsx';
 
 var backendBadges = null;
 

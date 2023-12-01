@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { initHiddenBadges, setBadgeHidden, setBadgeShown, updateStudent } from '../../Utils/requests';
 import './BadgeList.less';
-import BadgeDetails from '../BadgeDetails/BadgeDetails.jsx';
+import {BadgeDetails} from '../BadgeDetails/BadgeDetails.jsx';
 
 Modal.setAppElement('#root');
 
