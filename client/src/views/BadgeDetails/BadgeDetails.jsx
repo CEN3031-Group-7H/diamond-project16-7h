@@ -114,9 +114,7 @@ const MainBadgeInfo = ({ badgeToDisp, stats, setStats}) => {
                 )}
 
                 {badgeToDisp.image_url && (
-                <div className='badge-image-div' >
                     <img className='big-badge-image' src={badgeToDisp.image_url} alt={badgeToDisp.name} />
-                </div>
                 )}
                 
                 {badgeToDisp.description && (
