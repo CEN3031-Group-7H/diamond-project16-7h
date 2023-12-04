@@ -26,7 +26,8 @@ function BadgeCreator({ classroomId }) {
   const [badgeName, setBadgeName] = useState('');
   const [badgeDescription, setBadgeDescription] = useState('');
   const [badgeCriteria, setBadgeCriteria] = useState('');
-  const [badgeImageUrl, setImageUrl] = useState('');
+  const [badgeImageUrl, setBadgeImageUrl] = useState('');
+  const [badgeImageSelection, setBadgeImageSelection] = useState('');
 
   
 
@@ -62,7 +63,7 @@ function BadgeCreator({ classroomId }) {
     setBadgeName('');
     setBadgeDescription('');
     setBadgeCriteria('');
-    setImageUrl(null);
+    setBadgeImageUrl('');
   
     window.location.reload();
 };
@@ -73,7 +74,22 @@ function BadgeCreator({ classroomId }) {
   const handleNameChange = (event) => setBadgeName(event.target.value);
   const handleDescriptionChange = (event) => setBadgeDescription(event.target.value);
   const handleCriteriaChange = (event) => setBadgeCriteria(event.target.value);
-  const handleImageUrlChange = (event) => setImageUrl(event.target.value);
+  const handleImageUrlChange = (event) => setBadgeImageUrl(event.target.value);
+  const handleSelectionChange = (event) => {
+    // Check if the "Other" option was selected, meaning a custom url will be used
+    if(event.target.value == "other") {
+      // unhide the custom text input
+      document.getElementById("customUrlLabel").hidden = false;
+      document.getElementById("badgeImageUrl").hidden = false;
+      setBadgeImageUrl(event.target.value);
+    } else {
+      // hide the custom text input
+      document.getElementById("customUrlLabel").hidden = true;
+      document.getElementById("badgeImageUrl").hidden = true;
+      setBadgeImageUrl(event.target.value);
+    }
+    setBadgeImageSelection(event.target.value);
+  }
 
 
   return (
@@ -109,12 +125,26 @@ function BadgeCreator({ classroomId }) {
           />
         </div>
         <div>
-          <label htmlFor="badgeImageUrl">Badge Image URL:</label>
+          <label htmlFor="badgeImageSelection">Preset Badge Images</label>
+          <select id="badgeImageSelection" value={badgeImageSelection} onChange={handleSelectionChange}>
+            <option value="/images/trophy_badge.png">Trophy 🏆</option>
+            <option value="/images/thumbs_up_badge.png">Thumbs Up 👍</option>
+            <option value="/images/star_badge.png">Star ⭐</option>
+            <option value="/images/ribbon_badge.png">Ribbon 🎀</option>
+            <option value="/images/heart_badge.png">Heart 💟</option>
+            <option value="/images/apple_badge.png">Apple 🍎</option>
+            <option value="other">Other</option>
+            required
+          </select>
+        </div>
+        <div>
+          <label id="customUrlLabel" htmlFor="badgeImageUrl" hidden>Custom Badge Image URL:</label>
           <input
             type="text"
             id="badgeImageUrl"
             value={badgeImageUrl}
             onChange={handleImageUrlChange}
+            hidden
             required
           />
         </div>
