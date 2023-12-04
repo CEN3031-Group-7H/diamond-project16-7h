@@ -36,7 +36,7 @@ import './BadgeDetails.less';
           message = 'Only one student has earned this badge!';
         } else {
           percentage = Math.round((earnedCt / classroomsize) * 100);
-          message = percentage + '% of students in your class have earned this badge';
+          message = percentage + '% of students in your class have this badge';
         }
 
         return { percentage, message };
@@ -106,7 +106,7 @@ const MainBadgeInfo = ({ badgeToDisp, stats, setStats}) => {
       }, []); // Empty dependency array to run the effect only once
         //const stats = {message: "Percentage fetching not yet implemented", percentEarned: 0}
         return(
-            <div>
+            <div className='main-info'>
                 {badgeToDisp.name && (
                 <div id='header'>
                     <div>{badgeToDisp.name}</div>
@@ -114,35 +114,29 @@ const MainBadgeInfo = ({ badgeToDisp, stats, setStats}) => {
                 )}
 
                 {badgeToDisp.image_url && (
-                <div id='badge-image' >
-                    <img src={badgeToDisp.image_url} alt={badgeToDisp.name} />
+                <div className='badge-image-div' >
+                    <img className='big-badge-image' src={badgeToDisp.image_url} alt={badgeToDisp.name} />
                 </div>
                 )}
                 
                 {badgeToDisp.description && (
-                <div id='badge-description' >
-                    <div>{badgeToDisp.description}</div>
-                </div>
+                <div className='badge-description' >{badgeToDisp.description}</div>
                 )}
                 {stats ? (
                   <div className='earned-percent-container'>
                     <div className="earned-percent-bar" style={{
                       width: `${stats.percentage}%`,
                       height: '100%',
-                      backgroundColor: '#5BABDE',
-                      textAlign: 'center',
-                      lineHeight: '30px'
+                      lineHeight: "25px",
                     }}> {/*stlyes from the css arent applying so i had to at least put this one for the demo */}
-                      {stats.percentage}%
+                      {stats.percentage+"% "}
                     </div>
                   </div>
                 ) : (
                   <p>Loading Percentage...</p>
                 )}
                 {stats && stats.message ? (
-                    <div id='earned-percent-message'>
-                        <div>{stats.message}</div>
-                    </div>
+                    <div className='earned-percent-message'>{stats.message}</div>
                 ) : (
                   <p>Loading Percentage Message...</p>
                 )}
@@ -213,29 +207,30 @@ const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents
 
   const studentTable = classStudents.map((student, i) => {
     return (
-        <div>
-          <tr key={i}>
-            <td>{student.name} </td>
-            <td><button
-              onClick ={() => toggleStudentEarnship(i)}
-              className = {( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] ) ?
-                          "checked-box":
-                          "unchecked-box"} >
-            </button></td>{/*just directly display true/false for now, will make checkbox eventually */}
-          </tr>
-        </div>
+      <tr className='student-row' key={i}>
+        <td className='student-name'>{student.name} </td>
+        <button
+          onClick ={() => toggleStudentEarnship(i)}
+          className = {( originallyEarned[i] ? !hasToggled[i] : hasToggled[i] ) ?
+                      "checked-box":
+                      "unchecked-box"} >
+        </button>{/*just directly display true/false for now, will make checkbox eventually */}
+      </tr>
     );
   });
 
   return (
-    <div>
-      <>{studentTable}</>
-      <button className='save-button' onClick={() => applyChanges(
-        classId, badgeId, 
-        classStudents, setClassStudents,
-        originallyEarned, setOriginallyEarned, 
-        hasToggled, setHasToggled,
-        onRequestClose)}>💾</button>
+    <div className='teacher-info'>
+      <div className='student-table'>{studentTable}</div>
+      <div className='change-buttons'>
+        <button className='save-button' onClick={() => applyChanges(
+          classId, badgeId, 
+          classStudents, setClassStudents,
+          originallyEarned, setOriginallyEarned, 
+          hasToggled, setHasToggled,
+          onRequestClose)}>💾</button>
+        <button className='delete-button' onClick={()=>{}}>🗑</button>
+      </div>
     </div>
   );
 
@@ -316,29 +311,28 @@ function applyChanges(classId, badgeId, classStudents, setClassStudents, origina
       contentLabel="Badge Details Popup"
       >
         <div className='details-container'>
-          <div>
-            <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats}/>
-          </div>
-          <div>
-            {teacherView &&(
-              <TeacherOnlyBadgeInfo 
-                classId = {selectedBadge.classroom}
-                badgeId = {selectedBadge.id}
-                classStudents = {classStudents}
-                setClassStudents = {setClassStudents}
-                originallyEarned = {originallyEarned}
-                setOriginallyEarned = {setOriginallyEarned}
-                hasToggled = {hasToggled}
-                setHasToggled = {setHasToggled}
-                onRequestClose = {onRequestClose}
-              />
-            )}
-          </div>
+          <MainBadgeInfo badgeToDisp = {selectedBadge} stats={stats} setStats={setStats}/>
+        
+
+          {teacherView &&(
+            <TeacherOnlyBadgeInfo 
+              classId = {selectedBadge.classroom}
+              badgeId = {selectedBadge.id}
+              classStudents = {classStudents}
+              setClassStudents = {setClassStudents}
+              originallyEarned = {originallyEarned}
+              setOriginallyEarned = {setOriginallyEarned}
+              hasToggled = {hasToggled}
+              setHasToggled = {setHasToggled}
+              onRequestClose = {onRequestClose}
+            />
+          )}
+
           <button
             className='close-button'
             onClick={onRequestClose}
           >
-            X
+            × 
           </button>
         </div>
       </Modal>
