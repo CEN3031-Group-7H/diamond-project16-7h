@@ -19,7 +19,9 @@ function ViewBadges({ classroomId }) {
       setSelectedBadge(badge);
       setModalOpen(true);
     };
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
+  }
 
   //==== Collect all badges pertaining to mentor's class into an array ====//
  

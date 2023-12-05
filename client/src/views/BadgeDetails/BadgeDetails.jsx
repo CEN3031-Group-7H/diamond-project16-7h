@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { getBadge, getClassroom, getClassroomSize, getBadgeEarnCt, updateBadge, assignBadge, unassignBadge} from '../../Utils/requests';
+import { getBadge, getClassroom, getClassroomSize, getBadgeEarnCt, updateBadge, assignBadge, unassignBadge, deleteBadge} from '../../Utils/requests';
 import './BadgeDetails.less';
 
 
@@ -227,7 +227,7 @@ const TeacherOnlyBadgeInfo = ({classId, badgeId, classStudents, setClassStudents
           originallyEarned, setOriginallyEarned, 
           hasToggled, setHasToggled,
           onRequestClose)}>💾</button>
-        <button className='delete-button' onClick={()=>{}}>🗑</button>
+        <button className='delete-button' onClick={()=>{deleteBadge(badgeId); onRequestClose(); window.location.reload();}}>🗑</button>
       </div>
     </div>
   );
