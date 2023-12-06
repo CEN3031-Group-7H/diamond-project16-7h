@@ -145,7 +145,6 @@ function BadgeCreator({ classroomId }) {
             value={badgeImageUrl}
             onChange={handleImageUrlChange}
             hidden
-            required
           />
         </div>
         <button type="submit">Create Badge</button>
