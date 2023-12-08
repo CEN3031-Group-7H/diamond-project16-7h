@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { getStudent } from '../Utils/requests';
 
 function StudentInfo(props) {
