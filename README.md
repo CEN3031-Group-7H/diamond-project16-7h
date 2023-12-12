@@ -148,41 +148,68 @@ Before submitting a pull request, rebase the feature branch into the target bran
 Search profile (student view)
 - Students have the ability to search through classmates and access their date of membership and the badges they own. Students can thus compare their achievements with friends and work harder to earn badges they deem desirable.
 - Implementation:
+- <img width="611" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/3783a9c3-d474-4f2b-b3ee-f12633f99453">
 - ![Screenshot 2023-11-27 175745](https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/55063816/5d65bf89-89a7-43c3-8ef7-de3ddc9e441e)
 
 View created badges (teacher view)
 - Teachers can view the badges they have created to keep track of used images or assigned badges. This allows them to assign a past badge to more students or ensure that a badge is not created twice.
 - Wireframe:
+- <img width="625" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/3f77b9db-8d47-458d-ab80-361fba59dcc7">
+
 - Implementation:
+- <img width="355" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/610434c1-21d5-414a-81ee-66340c12dd1c">
+
 
 View badge details (teacher & student)
 - Students and teachers are able to view a badge's name, criteria, description, and percentage of students who have earned it. Teachers can use this information to determine who to assign a badge to while students can use this as motivation to work towards earning a new badge.
 - Wireframe:
+- <img width="627" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/cce9deab-c0ac-4fec-9089-f477b58e192a">
+
 - Implementation:
+- <img width="564" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/0e36b1e5-0418-4fc7-9e85-897ce81063e0">
+
 
 Upload custom badge via URL (teacher view)
 - Teachers can upload an image via URL to represent a badge. This allows teachers to import artwork from other sites as well as find custom images that cater to their specific class.
 - Wireframe:
+- <img width="627" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/940c20d8-5b3a-43de-bc6b-b1bf6270f2d0">
+
 - Implementation:
+- <img width="297" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/bd44221e-4682-4040-9a53-2abacff4a557">
+
 
 Create custom badge via default template (teacher view)
 - Teachers were provided 6 default badges including a ribbon, trophy, apple, heart, star, and thumbs up. This allowed badges to be created with minimal effort for teachers who may not have the time to find appropriate badges for students.
 - Implementation:
+- <img width="399" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/56553f48-2d00-4e12-8857-93a952abc5c9">
+
 
 Assign badges to students (teacher view)
 - Teachers have a simple checkbox system to assign badges to students.
 - Wireframe:
+- <img width="262" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/77970261-2c81-4411-ae61-21e53c71ce53">
+
 - Implementation:
+- <img width="294" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/9ee149cd-853f-4845-9b82-d89521976f42">
+
 
 View earned badges (student view)
 - Students have a tab on their page to view the badges they have earned. This is displayed gallery style.
 - Wireframe:
+- <img width="611" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/99da4239-52e1-4dd3-b80f-266515504357">
+
 - Implementation:
+- <img width="618" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/f19da2fa-8685-400a-8369-045555a76164">
+
 
 Edit visibility of badges (student view)
 - Students have the ability to hide or show badges on their public profile so that those who search them up only see the badges they are proud of.
 - Wireframe:
+- <img width="500" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/beb529ce-307f-4af6-a92a-a38d29ece90f">
+
 - Implementation:
+- <img width="625" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/76bb99c4-2b17-486a-b500-12fd3fa4b8d2">
+
 
 #### Running the Project Locally
 > Same setup as the development instructions above.
