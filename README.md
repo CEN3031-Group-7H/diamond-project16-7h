@@ -147,8 +147,9 @@ Before submitting a pull request, rebase the feature branch into the target bran
 #### Features Implemented:
 Search profile (student view)
 - Students have the ability to search through classmates and access their date of membership and the badges they own. Students can thus compare their achievements with friends and work harder to earn badges they deem desirable.
-- Implementation:
+- Wireframe:
 - <img width="611" alt="image" src="https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/3783a9c3-d474-4f2b-b3ee-f12633f99453">
+- Implementation: 
 - ![Screenshot 2023-11-27 175745](https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/55063816/5d65bf89-89a7-43c3-8ef7-de3ddc9e441e)
 
 View created badges (teacher view)
