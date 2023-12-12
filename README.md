@@ -140,3 +140,77 @@ Before submitting a pull request, rebase the feature branch into the target bran
 
 - PRs to **master** should squash and merge
 - PRs to all other branches should create a merge commit
+
+### Project 16: Gamification
+> This project entailed the introduction of badges and a student profile to the CASMM system.
+
+#### Features Implemented:
+Search profile (student view)
+- Students have the ability to search through classmates and access their date of membership and the badges they own. Students can thus compare their achievements with friends and work harder to earn badges they deem desirable.
+- Implementation:
+- ![Screenshot 2023-11-27 175745](https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/55063816/5d65bf89-89a7-43c3-8ef7-de3ddc9e441e)
+
+View created badges (teacher view)
+- Teachers can view the badges they have created to keep track of used images or assigned badges. This allows them to assign a past badge to more students or ensure that a badge is not created twice.
+- Wireframe:
+- Implementation:
+
+View badge details (teacher & student)
+- Students and teachers are able to view a badge's name, criteria, description, and percentage of students who have earned it. Teachers can use this information to determine who to assign a badge to while students can use this as motivation to work towards earning a new badge.
+- Wireframe:
+- Implementation:
+
+Upload custom badge via URL (teacher view)
+- Teachers can upload an image via URL to represent a badge. This allows teachers to import artwork from other sites as well as find custom images that cater to their specific class.
+- Wireframe:
+- Implementation:
+
+Create custom badge via default template (teacher view)
+- Teachers were provided 6 default badges including a ribbon, trophy, apple, heart, star, and thumbs up. This allowed badges to be created with minimal effort for teachers who may not have the time to find appropriate badges for students.
+- Implementation:
+
+Assign badges to students (teacher view)
+- Teachers have a simple checkbox system to assign badges to students.
+- Wireframe:
+- Implementation:
+
+View earned badges (student view)
+- Students have a tab on their page to view the badges they have earned. This is displayed gallery style.
+- Wireframe:
+- Implementation:
+
+Edit visibility of badges (student view)
+- Students have the ability to hide or show badges on their public profile so that those who search them up only see the badges they are proud of.
+- Wireframe:
+- Implementation:
+
+#### Running the Project Locally
+> Same setup as the development instructions above.
+
+#### How to update database and server connections:
+> New server/client/database connections can be added by creating a new route to the respecctive server/api/ component, followed by creating a controller for that route request, and lastly adding a request method to the client/utils/requests.js file.
+
+#### Updating STRAPI dump files (and creating a new one)
+- Use this page to learn how to create a new Strapi .dump file: [here](https://github.com/DavidMagda/CaSMM_fork_2023/blob/develop/scripts/readme.md)
+* NOTE: The command on this page is incorrect and should be the following:
+> pg_dumpall -U postgres strapi -f dumpall.dump
+- To re-create your database using the dump file, use "docker compose down" followed by "docker compose up" OR delete the db-dev image in Docker desktop and then run "docker compose up"
+
+#### Outstanding Work (unfinished or not started):
+- Automatic Badge Assignment
+  > Our idea for this feature is to allow for certain badges to be automatically assigned, without the teacher doing anything. Automatic assignment would definitely be used for time-based badges (eg. Member for 5 months, New Member, etc.), but can also be used for work-based badges (such as having the highest score on an assignment).
+
+- Profile banner
+  > Banner is somewhat redundant so we deprioritized this feature after Sprint 1.
+  > This feature would involve a badge or banner being chosen to display on or around the profile picture or profile page.
+
+- Canvas for custom badges
+  > Opted for inputting an image link address or choosing a preset image for ease of use.
+  > This would involve implementing a browser-based canvas (similar to GIMP or a pixel art application) for creating a badge image from scratch.
+
+- Admin access
+  > Requires the admin role to exist (other than the Strapi admin). Admins would be school administrators, school board officials, etc. We wanted the admin to be able to see all badges made by teachers in their school organization. The view would be similar to the teacher view, but with all of the badges shown.
+
+#### Built Upon
+- Used react-tabs for the tabbed panel view on the student profile
+- Used react-modal for the popups that occur during viewing more badge info (teacher and student views).
