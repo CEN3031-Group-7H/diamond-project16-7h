@@ -215,6 +215,15 @@ Edit visibility of badges (student view)
 #### Running the Project Locally
 > Same setup as the development instructions above.
 
+### Permissions Setup
+> It is necessary to have permissions in Strapi Roles match the permissions in the routes.json files. These changes to not seem to save to git, so here are the changes that will need to be made:
+> Allow the student role to access badge/countearners, classroom/countstudents, student/granthidebadgearr, stuednt/hidebadge, student/showbadge
+> ![image](https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/634978b8-a8d1-443d-9350-9d1badb26187)
+> Allow the teacher role to access badge/countearners, badge/create, badge/delete, badge/find, badge/findone, badge/update, classroom/countstudents
+> ![image](https://github.com/CEN3031-Group-7H/diamond-project16-7h/assets/78508701/f278a3eb-68a8-4e8c-bc66-94d581314d4e)
+
+
+
 #### How to update database and server connections:
 > New server/client/database connections can be added by creating a new route to the respecctive server/api/ component, followed by creating a controller for that route request, and lastly adding a request method to the client/utils/requests.js file.
 
